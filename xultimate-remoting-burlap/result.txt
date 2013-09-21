@@ -1,0 +1,57 @@
+测试过程中出现了异常。
+ab -c 100 -n 1000 http://127.0.0.1:8081/xultimate-remoting-burlap/accounts
+
+This is ApacheBench, Version 2.3 <$Revision: 655654 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 127.0.0.1 (be patient)
+Completed 100 requests
+Completed 200 requests
+Completed 300 requests
+Completed 400 requests
+Completed 500 requests
+Completed 600 requests
+Completed 700 requests
+Completed 800 requests
+Completed 900 requests
+Completed 1000 requests
+Finished 1000 requests
+
+
+Server Software:        Apache-Coyote/1.1
+Server Hostname:        127.0.0.1
+Server Port:            8081
+
+Document Path:          /xultimate-remoting-burlap/accounts
+Document Length:        776 bytes
+
+Concurrency Level:      100
+Time taken for tests:   0.290 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Total transferred:      962000 bytes
+HTML transferred:       776000 bytes
+Requests per second:    3444.14 [#/sec] (mean)
+Time per request:       29.035 [ms] (mean)
+Time per request:       0.290 [ms] (mean, across all concurrent requests)
+Transfer rate:          3235.61 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    1   1.6      0       6
+Processing:     2   27   9.9     26      58
+Waiting:        1   26   8.9     26      50
+Total:          8   28   9.4     27      58
+
+Percentage of the requests served within a certain time (ms)
+  50%     27
+  66%     31
+  75%     34
+  80%     36
+  90%     41
+  95%     45
+  98%     50
+  99%     51
+ 100%     58 (longest request)

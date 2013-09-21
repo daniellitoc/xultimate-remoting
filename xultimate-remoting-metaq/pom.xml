@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.danielli.xultimate</groupId>
+		<artifactId>xultimate-remoting</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>xultimate-remoting-metaq</artifactId>
+	<packaging>war</packaging>
+	
+	<name>The X-Ultimate Remoting MetaQ</name>
+	<description>The X-Ultimate Remoting metaq project.</description>
+	<url>https://github.com/daniellitoc/xultimate-remoting/tree/master/xultimate-remoting-metaq</url>
+
+	<properties>
+		<org.slf4j.version>1.7.5</org.slf4j.version>
+		<ch.qos.logback.version>1.0.13</ch.qos.logback.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>xultimate-context-support</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!-- 日志部分 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+		<!-- 日志实现使用Logback -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${ch.qos.logback.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.taobao.metamorphosis</groupId>
+			<artifactId>metamorphosis-client</artifactId>
+			<version>1.4.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.taobao.metamorphosis</groupId>
+			<artifactId>metamorphosis-client-extension</artifactId>
+			<version>1.4.6.2</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>xultimate-remoting-metaq</finalName>
+	</build>
+</project>

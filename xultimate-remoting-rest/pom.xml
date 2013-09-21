@@ -9,24 +9,28 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-
-	<artifactId>xultimate-remoting-rmi</artifactId>
-
+	<artifactId>xultimate-remoting-rest</artifactId>
+	
 	<packaging>war</packaging>
 
-	<name>The X-Ultimate Remoting RMI</name>
-	<description>The X-Ultimate Remoting rmi project.</description>
-	<url>https://github.com/daniellitoc/xultimate-remoting/tree/master/xultimate-remoting-rmi</url>
+	<name>The X-Ultimate Remoting REST</name>
+	<description>The X-Ultimate Remoting rest project.</description>
+	<url>https://github.com/daniellitoc/xultimate-remoting/tree/master/xultimate-remoting-rest</url>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.1.2</version>
+		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>xultimate-remoting-service</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
-
+	
 	<build>
-		<finalName>xultimate-remoting-rmi</finalName>
+		<finalName>xultimate-remoting-rest</finalName>
 	</build>
 </project>

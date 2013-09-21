@@ -8,17 +8,19 @@
 		<artifactId>xultimate-remoting</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-
-
-	<artifactId>xultimate-remoting-rmi</artifactId>
-
+	<artifactId>xultimate-remoting-hessian</artifactId>
 	<packaging>war</packaging>
 
-	<name>The X-Ultimate Remoting RMI</name>
-	<description>The X-Ultimate Remoting rmi project.</description>
-	<url>https://github.com/daniellitoc/xultimate-remoting/tree/master/xultimate-remoting-rmi</url>
+	<name>The X-Ultimate Remoting Hessian</name>
+	<description>The X-Ultimate Remoting hessian project.</description>
+	<url>https://github.com/daniellitoc/xultimate-remoting/tree/master/xultimate-remoting-hessian</url>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.caucho</groupId>
+			<artifactId>hessian</artifactId>
+			<version>4.0.7</version>
+		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>xultimate-remoting-service</artifactId>
@@ -27,6 +29,6 @@
 	</dependencies>
 
 	<build>
-		<finalName>xultimate-remoting-rmi</finalName>
+		<finalName>xultimate-remoting-hessian</finalName>
 	</build>
 </project>

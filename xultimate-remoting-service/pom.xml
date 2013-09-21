@@ -11,6 +11,8 @@
 	</parent>
 
 	<artifactId>xultimate-remoting-service</artifactId>
-	<name>xultimate-remoting-service</name>
-	<url>http://maven.apache.org</url>
+	
+	<name>The X-Ultimate Remoting Service</name>
+	<description>The X-Ultimate Remoting service project.</description>
+	<url>https://github.com/daniellitoc/xultimate-remoting/tree/master/xultimate-remoting-service</url>
 </project>

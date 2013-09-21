@@ -1,0 +1,3 @@
+kryo=org.danielli.xultimate.common.serialize.support.kryo.KryoSerialization
+protobuf=org.danielli.xultimate.common.serialize.support.protobuf.ProtobufSerialization
+protostuff=org.danielli.xultimate.common.serialize.support.protostuff.ProtostuffSerialization

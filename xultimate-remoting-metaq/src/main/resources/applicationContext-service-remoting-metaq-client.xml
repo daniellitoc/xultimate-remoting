@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	<context:component-scan base-package="org.danielli.xultimate.remoting.service" />
+	
+	<!--  message session factory -->
+	<bean id="sessionFactory" class="com.taobao.metamorphosis.client.extension.spring.MetaqMessageSessionFactoryBean">
+      <property name="zkConnect" value="127.0.0.1:2181"/>
+      <property name="zkSessionTimeoutMs" value="30000"/>
+      <property name="zkConnectionTimeoutMs" value="30000"/>
+      <property name="zkSyncTimeMs" value="5000"/>
+    </bean>
+    
+	<!--  template to send messages. -->
+    <bean id ="metaqTemplate" class="org.danielli.xultimate.remoting.metaq.support.MetaqTemplate">    
+      <property name="messageSessionFactory" ref="sessionFactory"/>
+      <property name="messageBodyConverter" ref="defaultMessageBodyConverter"/>
+      <!-- <property name="shareProducer" value="true"/> -->
+      <!-- <property name="defaultTopic" value="*"/> -->
+    </bean>
+    
+    <bean id="stringSerializer" class="org.danielli.xultimate.core.serializer.java.StringSerializer" />
+	<bean id="longSerializer" class="org.danielli.xultimate.core.serializer.java.LongSerializer" />
+	<bean id="shortSerializer" class="org.danielli.xultimate.core.serializer.java.ShortSerializer" />
+	<bean id="integerSerializer" class="org.danielli.xultimate.core.serializer.java.IntegerSerializer" />
+	<bean id="booleanSerializer" class="org.danielli.xultimate.core.serializer.java.BooleanSerializer" />
+	<bean id="dateSerializer" class="org.danielli.xultimate.core.serializer.java.DateSerializer" />
+	<bean id="byteSerializer" class="org.danielli.xultimate.core.serializer.java.ByteSerializer" />
+	<bean id="floatSerializer" class="org.danielli.xultimate.core.serializer.java.FloatSerializer" />
+	<bean id="doubleSerializer" class="org.danielli.xultimate.core.serializer.java.DoubleSerializer" />
+	<bean id="rpcProtobufSerializer" class="org.danielli.xultimate.core.serializer.protostuff.RpcProtobufSerializer" />
+	<bean id="rpcProtostuffSerializer" class="org.danielli.xultimate.core.serializer.protostuff.RpcProtostuffSerializer" />
+	<bean id="rpcKryoSerializer" class="org.danielli.xultimate.core.serializer.kryo.RpcKryoSerializer" />
+	<util:list id="serializers">
+		<ref bean="stringSerializer" />
+		<ref bean="longSerializer" />
+		<ref bean="integerSerializer" />
+		<ref bean="shortSerializer" />
+		<ref bean="booleanSerializer" />
+		<ref bean="dateSerializer" />
+		<ref bean="byteSerializer" />
+		<ref bean="floatSerializer" />
+		<ref bean="doubleSerializer" />
+		<ref bean="rpcProtobufSerializer"/>
+	</util:list>
+	<util:list id="deserializers">
+		<ref bean="stringSerializer" />
+		<ref bean="booleanSerializer" />
+		<ref bean="shortSerializer" />
+		<ref bean="integerSerializer" />
+		<ref bean="longSerializer" />
+		<ref bean="byteSerializer" />
+		<ref bean="floatSerializer" />
+		<ref bean="doubleSerializer" />
+		<ref bean="dateSerializer" />
+		<ref bean="rpcProtobufSerializer"/>
+	</util:list>
+	<bean id="serializer" class="org.danielli.xultimate.core.serializer.support.SerializerFactory" p:serializers-ref="serializers" />
+	<bean id="deserializer" class="org.danielli.xultimate.core.serializer.support.DeserializerFactory" p:deserializers-ref="deserializers" />
+	<!--  message body converter. -->
+	<bean id="defaultMessageBodyConverter" class="org.danielli.xultimate.remoting.metaq.support.DefaultMessageBodyConverter" p:serializer-ref="serializer" p:deserializer-ref="deserializer"/>
+</beans>

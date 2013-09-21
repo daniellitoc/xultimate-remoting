@@ -9,16 +9,19 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-
-	<artifactId>xultimate-remoting-rmi</artifactId>
-
+	<artifactId>xultimate-remoting-httpinvoker</artifactId>
 	<packaging>war</packaging>
 
-	<name>The X-Ultimate Remoting RMI</name>
-	<description>The X-Ultimate Remoting rmi project.</description>
-	<url>https://github.com/daniellitoc/xultimate-remoting/tree/master/xultimate-remoting-rmi</url>
+	<name>The X-Ultimate Remoting HttpInvoker</name>
+	<description>The X-Ultimate Remoting httpinvoker project.</description>
+	<url>https://github.com/daniellitoc/xultimate-remoting/tree/master/xultimate-remoting-httpinvoker</url>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.2.3</version>
+		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>xultimate-remoting-service</artifactId>
@@ -27,6 +30,6 @@
 	</dependencies>
 
 	<build>
-		<finalName>xultimate-remoting-rmi</finalName>
+		<finalName>xultimate-remoting-httpinvoker</finalName>
 	</build>
 </project>
