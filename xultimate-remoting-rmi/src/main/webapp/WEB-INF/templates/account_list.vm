@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Account List</title>
+</head>
+<body>
+	<table border="1" width="100%">
+		<tr>
+			<th>Name</th>
+		</tr>
+		#foreach ($account in $accounts)
+		<tr>
+			<td>$account.name</td>
+		</tr>
+		#end
+	</table>
+	<a href="/xultimate-remoting-rmi/accounts/add">Add Account</a>
+</body>
+</html>

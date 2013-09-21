@@ -1,0 +1,56 @@
+ab -c 100 -n 1000 http://127.0.0.1:8081/xultimate-remoting-rmi/accounts
+
+This is ApacheBench, Version 2.3 <$Revision: 655654 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 127.0.0.1 (be patient)
+Completed 100 requests
+Completed 200 requests
+Completed 300 requests
+Completed 400 requests
+Completed 500 requests
+Completed 600 requests
+Completed 700 requests
+Completed 800 requests
+Completed 900 requests
+Completed 1000 requests
+Finished 1000 requests
+
+
+Server Software:        Apache-Coyote/1.1
+Server Hostname:        127.0.0.1
+Server Port:            8081
+
+Document Path:          /xultimate-remoting-rmi/accounts
+Document Length:        803 bytes
+
+Concurrency Level:      100
+Time taken for tests:   0.209 seconds
+Complete requests:      1000
+Failed requests:        0
+Write errors:           0
+Total transferred:      989000 bytes
+HTML transferred:       803000 bytes
+Requests per second:    4784.99 [#/sec] (mean)
+Time per request:       20.899 [ms] (mean)
+Time per request:       0.209 [ms] (mean, across all concurrent requests)
+Transfer rate:          4621.44 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    1   2.3      0      10
+Processing:     4   19   6.5     18      59
+Waiting:        1   19   6.6     18      59
+Total:          9   20   5.9     18      59
+
+Percentage of the requests served within a certain time (ms)
+  50%     18
+  66%     20
+  75%     21
+  80%     22
+  90%     26
+  95%     32
+  98%     38
+  99%     41
+ 100%     59 (longest request)
