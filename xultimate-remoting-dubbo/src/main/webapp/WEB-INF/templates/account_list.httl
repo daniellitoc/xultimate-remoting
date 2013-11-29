@@ -9,12 +9,12 @@
 		<tr>
 			<th>Name</th>
 		</tr>
-		#foreach ($account in $accounts)
+		<!-- #for(Account account : accounts ) -->
 		<tr>
-			<td>$account.name</td>
+			<td>${account.name}</td>
 		</tr>
-		#end
+		<!-- #end -->
 	</table>
-	<a href="/xultimate-remoting-cxf/accounts/add">Add Account</a>
+	<a href="/xultimate-remoting-dubbo/accounts/add">Add Account</a>
 </body>
 </html>

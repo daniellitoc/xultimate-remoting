@@ -16,7 +16,7 @@
 		<jdk.version>1.7</jdk.version>
 		<junit.version>4.11</junit.version>
 		<org.springframework.version>3.2.3.RELEASE</org.springframework.version>
-		<org.apache.velocity.velocity.version>1.7</org.apache.velocity.velocity.version>
+		<com.github.httl.version>1.0.11</com.github.httl.version>
 		<javax.servlet.javax.servlet-api.version>3.1.0</javax.servlet.javax.servlet-api.version>
 	</properties>
 
@@ -43,10 +43,10 @@
 			<version>${org.springframework.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.velocity</groupId>
-			<artifactId>velocity</artifactId>
-			<version>${org.apache.velocity.velocity.version}</version>
-		</dependency>
+            <groupId>com.github.httl</groupId>
+            <artifactId>httl-springmvc</artifactId>
+            <version>${com.github.httl.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -127,12 +127,12 @@
 		<repository>
 			<id>nexus-releases</id>
 			<name>Nexus Release Repository</name>
-			<url>http://localhost:8080/nexus/content/repositories/releases</url>
+			<url>http://localhost/nexus/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
 			<id>nexus-snapshots</id>
 			<name>Nexus Snapshots Repository</name>
-			<url>http://localhost:8080/nexus/content/repositories/snapshots</url>
+			<url>http://localhost/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 	

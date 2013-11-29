@@ -31,14 +31,16 @@
 	
 	<mvc:annotation-driven />
 	
-	<bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer" p:resourceLoaderPath="/WEB-INF/templates/">
-		<property name="velocityProperties">
+	<bean class="org.danielli.xultimate.web.support.HTTLConfigurer" lazy-init="false">
+		<property name="httlProperties">
 			<value>
-				file.resource.loader.cache=true
+				import.packages+=org.danielli.xultimate.model
+				template.directory=/WEB-INF/templates/
 				input.encoding=UTF-8
 				output.encoding=UTF-8
 			</value>
-		</property>	
+		</property>
 	</bean>
-	<bean class="org.springframework.web.servlet.view.velocity.VelocityViewResolver" p:contentType="text/html; charset=utf8" p:suffix=".vm" />
+	
+	<bean class="httl.web.springmvc.HttlViewResolver" p:contentType="text/html; charset=utf8" p:suffix=".httl" />
 </beans>
