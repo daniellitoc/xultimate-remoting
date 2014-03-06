@@ -1,4 +1,4 @@
-package org.danielli.xultimate.remoting.service;
+package org.danielli.xultimate.remoting.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;

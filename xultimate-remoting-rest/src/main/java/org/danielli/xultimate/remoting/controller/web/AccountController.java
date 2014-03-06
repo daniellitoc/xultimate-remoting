@@ -1,4 +1,4 @@
-package org.danielli.xultimate.remoting.web;
+package org.danielli.xultimate.remoting.controller.web;
 
 import java.util.List;
 
