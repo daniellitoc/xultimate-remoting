@@ -27,14 +27,14 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 		
-	<context:component-scan base-package="org.danielli.xultimate.web" />
+	<context:component-scan base-package="org.danielli.xultimate.remoting.web" />
 	
 	<mvc:annotation-driven />
 	
-	<bean class="org.danielli.xultimate.web.support.HTTLConfigurer" lazy-init="false">
+	<bean class="org.danielli.xultimate.web.servlet.view.httl.HttlViewResolver" p:contentType="text/html; charset=utf8" p:suffix=".httl">
 		<property name="httlProperties">
 			<value>
-				import.packages+=org.danielli.xultimate.model
+				import.packages+=org.danielli.xultimate.remoting.dto
 				template.directory=/WEB-INF/templates/
 				input.encoding=UTF-8
 				output.encoding=UTF-8
@@ -42,6 +42,5 @@
 		</property>
 	</bean>
 	
-	<bean class="httl.web.springmvc.HttlViewResolver" p:contentType="text/html; charset=utf8" p:suffix=".httl" />
 	<bean name="/remote/AccountService" class="org.springframework.remoting.caucho.HessianServiceExporter" p:serviceInterface="org.danielli.xultimate.remoting.service.AccountService" p:service-ref="accountService" />
 </beans>
