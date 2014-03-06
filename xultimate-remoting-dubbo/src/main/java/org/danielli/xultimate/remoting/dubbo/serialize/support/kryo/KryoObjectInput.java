@@ -1,10 +1,9 @@
-package org.danielli.xultimate.common.serialize.support.kryo;
+package org.danielli.xultimate.remoting.dubbo.serialize.support.kryo;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 
-import org.danielli.xultimate.common.serialize.support.JavaAbstractDataInput;
 import org.danielli.xultimate.core.serializer.java.BooleanSerializer;
 import org.danielli.xultimate.core.serializer.java.ByteSerializer;
 import org.danielli.xultimate.core.serializer.java.DoubleSerializer;
@@ -14,6 +13,7 @@ import org.danielli.xultimate.core.serializer.java.LongSerializer;
 import org.danielli.xultimate.core.serializer.java.ShortSerializer;
 import org.danielli.xultimate.core.serializer.java.StringSerializer;
 import org.danielli.xultimate.core.serializer.kryo.RpcKryoSerializer;
+import org.danielli.xultimate.remoting.dubbo.serialize.support.JavaAbstractDataInput;
 
 import com.alibaba.dubbo.common.serialize.ObjectInput;
 

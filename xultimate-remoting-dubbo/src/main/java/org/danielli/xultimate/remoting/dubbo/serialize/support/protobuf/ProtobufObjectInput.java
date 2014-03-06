@@ -1,10 +1,9 @@
-package org.danielli.xultimate.common.serialize.support.protostuff;
+package org.danielli.xultimate.remoting.dubbo.serialize.support.protobuf;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 
-import org.danielli.xultimate.common.serialize.support.JavaAbstractDataInput;
 import org.danielli.xultimate.core.serializer.java.BooleanSerializer;
 import org.danielli.xultimate.core.serializer.java.ByteSerializer;
 import org.danielli.xultimate.core.serializer.java.DoubleSerializer;
@@ -13,16 +12,17 @@ import org.danielli.xultimate.core.serializer.java.IntegerSerializer;
 import org.danielli.xultimate.core.serializer.java.LongSerializer;
 import org.danielli.xultimate.core.serializer.java.ShortSerializer;
 import org.danielli.xultimate.core.serializer.java.StringSerializer;
-import org.danielli.xultimate.core.serializer.protostuff.RpcProtostuffSerializer;
+import org.danielli.xultimate.core.serializer.protostuff.RpcProtobufSerializer;
+import org.danielli.xultimate.remoting.dubbo.serialize.support.JavaAbstractDataInput;
 
 import com.alibaba.dubbo.common.serialize.ObjectInput;
 
-public class ProtostuffObjectInput extends JavaAbstractDataInput implements ObjectInput {
-	
-	private RpcProtostuffSerializer rpcProtostuffSerializer;
+public class ProtobufObjectInput extends JavaAbstractDataInput implements ObjectInput {
+
+	private RpcProtobufSerializer rpcProtobufSerializer;
 	private InputStream inputStream;
 	
-	public ProtostuffObjectInput(InputStream inputStream, 
+	public ProtobufObjectInput(InputStream inputStream, 
 			BooleanSerializer booleanSerializer, 
 			ByteSerializer byteSerializer,
 			ShortSerializer shortSerializer,
@@ -31,19 +31,19 @@ public class ProtostuffObjectInput extends JavaAbstractDataInput implements Obje
 			FloatSerializer floatSerializer,
 			DoubleSerializer doubleSerializer,
 			StringSerializer stringSerializer,
-			RpcProtostuffSerializer rpcProtostuffSerializer) {
+			RpcProtobufSerializer rpcProtobufSerializer) {
 		super(inputStream, booleanSerializer, byteSerializer, shortSerializer, integerSerializer, longSerializerr, floatSerializer, doubleSerializer, stringSerializer);
 		
 		this.inputStream = inputStream;
-		this.rpcProtostuffSerializer = rpcProtostuffSerializer;
+		this.rpcProtobufSerializer = rpcProtobufSerializer;
 	}
-	
+
 	@Override
 	public Object readObject() throws IOException, ClassNotFoundException {
 		byte b = readByte();
 		if( b == 0 )
 			return null;
-		return this.rpcProtostuffSerializer.deserialize(inputStream, Object.class);
+		return this.rpcProtobufSerializer.deserialize(inputStream, Object.class);
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class ProtostuffObjectInput extends JavaAbstractDataInput implements Obje
 		byte b = readByte();
 		if( b == 0 )
 			return null;
-		return this.rpcProtostuffSerializer.deserialize(inputStream, cls);
+		return this.rpcProtobufSerializer.deserialize(inputStream, cls);
 	}
 
 	@Override
@@ -60,6 +60,6 @@ public class ProtostuffObjectInput extends JavaAbstractDataInput implements Obje
 		byte b = readByte();
 		if( b == 0 )
 			return null;
-		return this.rpcProtostuffSerializer.deserialize(inputStream, cls);
+		return this.rpcProtobufSerializer.deserialize(inputStream, cls);
 	}
 }

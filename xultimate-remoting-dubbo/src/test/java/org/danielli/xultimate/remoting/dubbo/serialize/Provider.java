@@ -1,4 +1,4 @@
-package org.danielli.xultimate.common.serialize;
+package org.danielli.xultimate.remoting.dubbo.serialize;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 

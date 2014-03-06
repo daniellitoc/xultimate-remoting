@@ -1,4 +1,4 @@
-package org.danielli.xultimate.common.serialize.support.kryo;
+package org.danielli.xultimate.remoting.dubbo.serialize.support.protobuf;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,14 +12,14 @@ import org.danielli.xultimate.core.serializer.java.IntegerSerializer;
 import org.danielli.xultimate.core.serializer.java.LongSerializer;
 import org.danielli.xultimate.core.serializer.java.ShortSerializer;
 import org.danielli.xultimate.core.serializer.java.StringSerializer;
-import org.danielli.xultimate.core.serializer.kryo.RpcKryoSerializer;
+import org.danielli.xultimate.core.serializer.protostuff.RpcProtobufSerializer;
 
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.common.serialize.ObjectInput;
 import com.alibaba.dubbo.common.serialize.ObjectOutput;
 import com.alibaba.dubbo.common.serialize.Serialization;
 
-public class KryoSerialization implements Serialization {
+public class ProtobufSerialization implements Serialization {
 	
 	private BooleanSerializer booleanSerializer = new BooleanSerializer();
 	
@@ -37,22 +37,22 @@ public class KryoSerialization implements Serialization {
 	
 	private StringSerializer stringSerializer = new StringSerializer();
 	
-	private RpcKryoSerializer rpcKryoSerializer = new RpcKryoSerializer();
+	private RpcProtobufSerializer rpcProtobufSerializer = new RpcProtobufSerializer();
 	
 	public byte getContentTypeId() {
-        return 12;
+        return 11;
     }
 
     public String getContentType() {
-        return "x-application/kryo";
+        return "x-application/protobuf";
     }
 
     public ObjectOutput serialize(URL url, OutputStream out) throws IOException {
-        return new KryoObjectOutput(out, booleanSerializer, byteSerializer, shortSerializer, integerSerializer, longSerializer, floatSerializer, doubleSerializer, stringSerializer, rpcKryoSerializer);
+        return new ProtobufObjectOutput(out, booleanSerializer, byteSerializer, shortSerializer, integerSerializer, longSerializer, floatSerializer, doubleSerializer, stringSerializer, rpcProtobufSerializer);
     }
 
     public ObjectInput deserialize(URL url, InputStream is) throws IOException {
-        return new KryoObjectInput(is, booleanSerializer, byteSerializer, shortSerializer, integerSerializer, longSerializer, floatSerializer, doubleSerializer, stringSerializer, rpcKryoSerializer);
+        return new ProtobufObjectInput(is, booleanSerializer, byteSerializer, shortSerializer, integerSerializer, longSerializer, floatSerializer, doubleSerializer, stringSerializer, rpcProtobufSerializer);
     }
 
 }

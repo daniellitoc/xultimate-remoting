@@ -1,5 +1,5 @@
-package org.danielli.xultimate.common.serialize;
-import org.danielli.xultimate.remoting.domain.Account;
+package org.danielli.xultimate.remoting.dubbo.serialize;
+import org.danielli.xultimate.remoting.dto.Account;
 import org.danielli.xultimate.remoting.service.AccountService;
 import org.danielli.xultimate.util.performance.PerformanceMonitor;
 import org.danielli.xultimate.util.time.stopwatch.support.AdvancedStopWatchSummary;

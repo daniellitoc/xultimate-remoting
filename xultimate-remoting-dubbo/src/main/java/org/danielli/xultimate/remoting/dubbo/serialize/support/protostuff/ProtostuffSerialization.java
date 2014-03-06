@@ -1,4 +1,4 @@
-package org.danielli.xultimate.common.serialize.support.protostuff;
+package org.danielli.xultimate.remoting.dubbo.serialize.support.protostuff;
 
 import java.io.IOException;
 import java.io.InputStream;

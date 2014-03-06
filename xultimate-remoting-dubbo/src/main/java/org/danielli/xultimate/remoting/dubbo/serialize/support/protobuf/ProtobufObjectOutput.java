@@ -1,9 +1,8 @@
-package org.danielli.xultimate.common.serialize.support.protostuff;
+package org.danielli.xultimate.remoting.dubbo.serialize.support.protobuf;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.danielli.xultimate.common.serialize.support.JavaAbstractDataOutput;
 import org.danielli.xultimate.core.serializer.java.BooleanSerializer;
 import org.danielli.xultimate.core.serializer.java.ByteSerializer;
 import org.danielli.xultimate.core.serializer.java.DoubleSerializer;
@@ -12,16 +11,17 @@ import org.danielli.xultimate.core.serializer.java.IntegerSerializer;
 import org.danielli.xultimate.core.serializer.java.LongSerializer;
 import org.danielli.xultimate.core.serializer.java.ShortSerializer;
 import org.danielli.xultimate.core.serializer.java.StringSerializer;
-import org.danielli.xultimate.core.serializer.protostuff.RpcProtostuffSerializer;
+import org.danielli.xultimate.core.serializer.protostuff.RpcProtobufSerializer;
+import org.danielli.xultimate.remoting.dubbo.serialize.support.JavaAbstractDataOutput;
 
 import com.alibaba.dubbo.common.serialize.ObjectOutput;
 
-public class ProtostuffObjectOutput extends JavaAbstractDataOutput implements ObjectOutput {
+public class ProtobufObjectOutput extends JavaAbstractDataOutput implements ObjectOutput {
 
-	private RpcProtostuffSerializer rpcProtostuffSerializer;
+	private RpcProtobufSerializer rpcProtobufSerializer;
 	private OutputStream outputStream;
 	
-	public ProtostuffObjectOutput(OutputStream outputStream,
+	public ProtobufObjectOutput(OutputStream outputStream,
 			BooleanSerializer booleanSerializer, 
 			ByteSerializer byteSerializer,
 			ShortSerializer shortSerializer,
@@ -30,13 +30,13 @@ public class ProtostuffObjectOutput extends JavaAbstractDataOutput implements Ob
 			FloatSerializer floatSerializer,
 			DoubleSerializer doubleSerializer,
 			StringSerializer stringSerializer,
-			RpcProtostuffSerializer rpcProtostuffSerializer) {
+			RpcProtobufSerializer rpcProtobufSerializer) {
 		super(outputStream, booleanSerializer, byteSerializer, shortSerializer, integerSerializer, longSerializerr, floatSerializer, doubleSerializer, stringSerializer);
 		
 		this.outputStream = outputStream;
-		this.rpcProtostuffSerializer = rpcProtostuffSerializer;
+		this.rpcProtobufSerializer = rpcProtobufSerializer;
 	}
-	
+
 	@Override
 	public void flushBuffer() throws IOException {
 		outputStream.flush();
@@ -48,8 +48,7 @@ public class ProtostuffObjectOutput extends JavaAbstractDataOutput implements Ob
 			writeByte((byte) 0);
 		} else {
 			writeByte((byte) 1);
-			rpcProtostuffSerializer.serialize(obj, outputStream);
+			rpcProtobufSerializer.serialize(obj, outputStream);
 		}
 	}
-
 }
