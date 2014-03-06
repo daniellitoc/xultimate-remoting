@@ -7,6 +7,7 @@ import org.danielli.xultimate.context.kvStore.memcached.xmemcached.XMemcachedRet
 import org.danielli.xultimate.context.kvStore.memcached.xmemcached.support.XMemcachedTemplate;
 
 import com.taobao.metamorphosis.client.consumer.MessageIdCache;
+import com.taobao.metamorphosis.client.consumer.SimpleFetchManager;
 
 public class XMemcacheMessageIdCache implements MessageIdCache {
 	
@@ -44,6 +45,10 @@ public class XMemcacheMessageIdCache implements MessageIdCache {
 		
 		});
 		
+	}
+	
+	public void addSampleFetchManager() {
+		SimpleFetchManager.setMessageIdCache(this);
 	}
 	
 	

@@ -39,7 +39,7 @@ public class MetaqClientLoggingService implements LoggingService {
 				if (!sendResult.isSuccess()) {
 					LOGGER.error("Send message failed,error message:" + sendResult.getErrorMessage());
 				} else {
-					LOGGER.debug("Send message successfully,sent to " + sendResult.getPartition());
+					LOGGER.info("Send message successfully,sent to " + sendResult.getPartition());
 				}
 			}
 		});
@@ -55,7 +55,7 @@ public class MetaqClientLoggingService implements LoggingService {
 						if (!result.isSuccess()) {
 							LOGGER.error("Send message failed,error message:" + result.getErrorMessage());
 						} else {
-							LOGGER.debug("Send message successfully,sent to " + result.getPartition());
+							LOGGER.info("Send message successfully,sent to " + result.getPartition());
 						}
 					}
 					

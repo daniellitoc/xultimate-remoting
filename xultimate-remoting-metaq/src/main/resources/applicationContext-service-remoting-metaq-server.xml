@@ -28,9 +28,7 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 	
 	  <bean id="messageIdCache" class="org.danielli.xultimate.remoting.metaq.support.XMemcacheMessageIdCache"
-	  	p:memcachedTemplate-ref="xmemcachedTemplate" p:expireInSeconds="60" />
-	  <bean id="setMessageIdCache" class="com.taobao.metamorphosis.client.consumer.SimpleFetchManager" factory-method="setMessageIdCache"
-	  	c:messageIdCache-ref="messageIdCache" />
+	  	p:memcachedTemplate-ref="xmemcachedTemplate" p:expireInSeconds="60" init-method="addSampleFetchManager" />
 	
 	  <!--  topics to be subscribed. -->
 	  <bean id="loggingTopic" class="com.taobao.metamorphosis.client.extension.spring.MetaqTopic">
@@ -43,13 +41,13 @@
 	  </bean>
 	  
 	  <!--  message listener -->
-      <bean id= "messageListenerorg.danielli.xultimate.remoting.remoting.service.implvice.impl.MetaqLoggingMessageListener">
+      <bean id= "messageListener" class="org.danielli.xultimate.remoting.service.impl.MetaqLoggingMessageListener">
         <!--  threads to process these messages. -->
         <property name="processThreads" value="10"/>
       </bean>
       
       <!--  listener container to subscribe topics -->
-	  <bean id ="listenerContainer" class="com.taobao.metamorphosis.client.extension.spring.MessageListenerContainer" depends-on="setMessageIdCache"> 
+	  <bean id ="listenerContainer" class="com.taobao.metamorphosis.client.extension.spring.MessageListenerContainer" depends-on="messageIdCache"> 
 	       <property name="messageSessionFactory" ref="sessionFactory"/>
 	       <property name="messageBodyConverter" ref="defaultMessageBodyConverter"/>
 	       <property name="subscribers">
