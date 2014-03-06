@@ -14,6 +14,12 @@ import org.danielli.xultimate.core.serializer.java.StringSerializer;
 
 import com.alibaba.dubbo.common.serialize.DataOutput;
 
+/**
+ * Java抽象数据序列化。。
+ * 
+ * @author Daniel Li
+ * @since 18 Jun 2013
+ */
 public abstract class JavaAbstractDataOutput implements DataOutput {
 
 	private OutputStream outputStream;

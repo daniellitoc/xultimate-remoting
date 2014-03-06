@@ -19,6 +19,12 @@ import com.alibaba.dubbo.common.serialize.ObjectInput;
 import com.alibaba.dubbo.common.serialize.ObjectOutput;
 import com.alibaba.dubbo.common.serialize.Serialization;
 
+/**
+ * Protostuff序列化器。
+ * 
+ * @author Daniel Li
+ * @since 18 Jun 2013
+ */
 public class ProtostuffSerialization implements Serialization {
 	
 	private BooleanSerializer booleanSerializer = new BooleanSerializer();

@@ -16,6 +16,12 @@ import org.danielli.xultimate.remoting.dubbo.serialize.support.JavaAbstractDataO
 
 import com.alibaba.dubbo.common.serialize.ObjectOutput;
 
+/**
+ * Protostuff对象解序列化。。
+ * 
+ * @author Daniel Li
+ * @since 18 Jun 2013
+ */
 public class ProtostuffObjectOutput extends JavaAbstractDataOutput implements ObjectOutput {
 
 	private RpcProtostuffSerializer rpcProtostuffSerializer;

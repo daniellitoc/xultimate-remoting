@@ -17,6 +17,12 @@ import org.danielli.xultimate.remoting.dubbo.serialize.support.JavaAbstractDataI
 
 import com.alibaba.dubbo.common.serialize.ObjectInput;
 
+/**
+ * Protobuf对象解序列化。。
+ * 
+ * @author Daniel Li
+ * @since 18 Jun 2013
+ */
 public class ProtobufObjectInput extends JavaAbstractDataInput implements ObjectInput {
 
 	private RpcProtobufSerializer rpcProtobufSerializer;

@@ -16,6 +16,12 @@ import org.danielli.xultimate.remoting.dubbo.serialize.support.JavaAbstractDataO
 
 import com.alibaba.dubbo.common.serialize.ObjectOutput;
 
+/**
+ * Kryo对象序列化。。
+ * 
+ * @author Daniel Li
+ * @since 18 Jun 2013
+ */
 public class KryoObjectOutput extends JavaAbstractDataOutput implements ObjectOutput {
 
 	private RpcKryoSerializer rpcKryoSerializer;

@@ -14,6 +14,12 @@ import org.danielli.xultimate.core.serializer.java.StringSerializer;
 
 import com.alibaba.dubbo.common.serialize.DataInput;
 
+/**
+ * Java抽象数据解序列化。。
+ * 
+ * @author Daniel Li
+ * @since 18 Jun 2013
+ */
 public abstract class JavaAbstractDataInput implements DataInput {
 
 	private InputStream inputStream;
