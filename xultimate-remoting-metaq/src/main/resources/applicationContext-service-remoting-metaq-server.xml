@@ -27,7 +27,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 	
-	  <bean id="messageIdCache" class="org.danielli.xultimate.remoting.metaq.support.XMemcacheMessageIdCache"
+	  <bean id="messageIdCache" class="org.danielli.xultimate.remoting.metaq.support.XMemcachedMessageIdCache"
 	  	p:memcachedTemplate-ref="xmemcachedTemplate" p:expireInSeconds="60" init-method="addSampleFetchManager" />
 	
 	  <!--  topics to be subscribed. -->

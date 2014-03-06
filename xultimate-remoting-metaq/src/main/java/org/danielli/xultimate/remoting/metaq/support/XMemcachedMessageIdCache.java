@@ -9,16 +9,31 @@ import org.danielli.xultimate.context.kvStore.memcached.xmemcached.support.XMemc
 import com.taobao.metamorphosis.client.consumer.MessageIdCache;
 import com.taobao.metamorphosis.client.consumer.SimpleFetchManager;
 
-public class XMemcacheMessageIdCache implements MessageIdCache {
-	
+/**
+ * XMemcached消息ID缓存。
+ * 
+ * @author Daniel Li
+ * @since 15 Jun 2013
+ */
+public class XMemcachedMessageIdCache implements MessageIdCache {
+	/** XMemcached模板类 */
 	private XMemcachedTemplate memcachedTemplate;
 
+	/** 失效时间 */
 	private int expireInSeconds = 60;
 
+	/**
+	 * 设置XMemcached模板类。
+	 * @param memcachedTemplate XMemcached模板类。
+	 */
 	public void setMemcachedTemplate(XMemcachedTemplate memcachedTemplate) {
 		this.memcachedTemplate = memcachedTemplate;
 	}
 
+	/**
+	 * 设置失效时间。
+	 * @param expireInSeconds 失效时间。
+	 */
 	public void setExpireInSeconds(int expireInSeconds) {
 		this.expireInSeconds = expireInSeconds;
 	}
@@ -47,6 +62,9 @@ public class XMemcacheMessageIdCache implements MessageIdCache {
 		
 	}
 	
+	/**
+	 * 设置XMemcachedMessageIdCache。
+	 */
 	public void addSampleFetchManager() {
 		SimpleFetchManager.setMessageIdCache(this);
 	}

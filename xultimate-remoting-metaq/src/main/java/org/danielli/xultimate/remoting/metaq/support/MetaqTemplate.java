@@ -21,6 +21,13 @@ import com.taobao.metamorphosis.client.producer.SendResult;
 import com.taobao.metamorphosis.exception.MetaClientException;
 import com.taobao.metamorphosis.utils.ThreadUtils;
 
+/**
+ * 补充，修改过。
+ * Helper class that simplifies synchronous MetaQ access code.
+ * 
+ * @author dennis<killme2008@gmail.com>
+ * 
+ */
 public class MetaqTemplate implements DisposableBean {
 	
 	private MessageSessionFactory messageSessionFactory;
