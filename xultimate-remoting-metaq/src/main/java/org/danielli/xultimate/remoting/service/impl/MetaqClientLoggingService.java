@@ -2,7 +2,7 @@ package org.danielli.xultimate.remoting.service.impl;
 
 import javax.annotation.Resource;
 
-import org.danielli.xultimate.remoting.domain.Logging;
+import org.danielli.xultimate.remoting.dto.Logging;
 import org.danielli.xultimate.remoting.metaq.MessageProducerCallback;
 import org.danielli.xultimate.remoting.metaq.MessageProducerWithMessageCallback;
 import org.danielli.xultimate.remoting.metaq.MetaqTemplateUtils;
@@ -88,6 +88,7 @@ public class MetaqClientLoggingService implements LoggingService {
 		            messageProducer.commit();
 		        } catch (final Exception e) {
 		        	messageProducer.rollback();
+		        	throw e;
 		        }
 			}
 		});

@@ -16,34 +16,7 @@
 	<description>The X-Ultimate Remoting metaq project.</description>
 	<url>https://github.com/daniellitoc/xultimate-remoting/tree/master/xultimate-remoting-metaq</url>
 
-	<properties>
-		<org.slf4j.version>1.7.5</org.slf4j.version>
-		<ch.qos.logback.version>1.0.13</ch.qos.logback.version>
-	</properties>
-
 	<dependencies>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>xultimate-context-support</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<!-- 日志部分 -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${org.slf4j.version}</version>
-		</dependency>
-		<!-- 日志实现使用Logback -->
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>${ch.qos.logback.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>${org.slf4j.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>com.taobao.metamorphosis</groupId>
 			<artifactId>metamorphosis-client</artifactId>

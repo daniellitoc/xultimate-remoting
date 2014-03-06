@@ -1,4 +1,4 @@
-package org.danielli.xultimate.remoting.domain;
+package org.danielli.xultimate.remoting.dto;
 
 import java.io.Serializable;
 import java.util.Date;

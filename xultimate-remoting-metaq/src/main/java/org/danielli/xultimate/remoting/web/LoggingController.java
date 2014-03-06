@@ -1,10 +1,10 @@
-package org.danielli.xultimate.web;
+package org.danielli.xultimate.remoting.web;
 
 import java.util.Date;
 
 import javax.annotation.Resource;
 
-import org.danielli.xultimate.remoting.domain.Logging;
+import org.danielli.xultimate.remoting.dto.Logging;
 import org.danielli.xultimate.remoting.service.LoggingService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

@@ -2,7 +2,7 @@ package org.danielli.xultimate.remoting.service.impl;
 
 import javax.annotation.Resource;
 
-import org.danielli.xultimate.remoting.domain.Logging;
+import org.danielli.xultimate.remoting.dto.Logging;
 import org.danielli.xultimate.remoting.service.LoggingService;
 
 import com.taobao.metamorphosis.client.extension.spring.DefaultMessageListener;

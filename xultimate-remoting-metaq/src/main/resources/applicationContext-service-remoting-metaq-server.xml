@@ -43,7 +43,7 @@
 	  </bean>
 	  
 	  <!--  message listener -->
-      <bean id= "messageListener" class="org.danielli.xultimate.remoting.service.impl.MetaqLoggingMessageListener">
+      <bean id= "messageListenerorg.danielli.xultimate.remoting.remoting.service.implvice.impl.MetaqLoggingMessageListener">
         <!--  threads to process these messages. -->
         <property name="processThreads" value="10"/>
       </bean>
