@@ -29,22 +29,20 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
 		http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 		
-	<context:component-scan base-package="org.danielli.xultimate.web" />
+	<context:component-scan base-package="org.danielli.xultimate.remoting.web" />
 	
 	<mvc:annotation-driven />
 	
-	<bean class="org.danielli.xultimate.web.support.HTTLConfigurer" lazy-init="false">
+	<bean class="org.danielli.xultimate.web.servlet.view.httl.HttlViewResolver" p:contentType="text/html; charset=utf8" p:suffix=".httl">
 		<property name="httlProperties">
 			<value>
-				import.packages+=org.danielli.xultimate.model
+				import.packages+=org.danielli.xultimate.remoting.dto
 				template.directory=/WEB-INF/templates/
 				input.encoding=UTF-8
 				output.encoding=UTF-8
 			</value>
 		</property>
 	</bean>
-	
-	<bean class="httl.web.springmvc.HttlViewResolver" p:contentType="text/html; charset=utf8" p:suffix=".httl" />
 	
 	<jaxws:client id="remoteCxfAccountServiceEndpoint" serviceClass="org.danielli.xultimate.remoting.cxf.AccountServiceEndpoint"  address="http://localhost:8082/xultimate-remoting-cxf/services/AccountService" />
 </beans>

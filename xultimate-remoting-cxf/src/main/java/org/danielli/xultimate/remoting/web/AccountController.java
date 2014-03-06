@@ -1,11 +1,11 @@
-package org.danielli.xultimate.web;
+package org.danielli.xultimate.remoting.web;
 
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.danielli.xultimate.remoting.cxf.AccountServiceEndpoint;
-import org.danielli.xultimate.remoting.domain.Account;
+import org.danielli.xultimate.remoting.dto.Account;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;

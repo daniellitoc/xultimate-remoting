@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.jws.WebService;
 
-import org.danielli.xultimate.remoting.domain.Account;
+import org.danielli.xultimate.remoting.dto.Account;
 
 @WebService
 public interface AccountServiceEndpoint {
