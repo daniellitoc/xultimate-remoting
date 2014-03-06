@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.danielli.xultimate.remoting.domain.Account;
+import org.danielli.xultimate.remoting.dto.Account;
 import org.danielli.xultimate.remoting.service.AccountService;
 import org.springframework.stereotype.Component;
 
