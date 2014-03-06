@@ -1,4 +1,4 @@
-package org.danielli.xultimate.web;
+package org.danielli.xultimate.remoting.web;
 
 import javax.annotation.Resource;
 
