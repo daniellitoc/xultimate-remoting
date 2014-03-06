@@ -1,4 +1,4 @@
-package org.danielli.xultimate.remoting.cxf;
+package org.danielli.xultimate.remoting.service.cxf;
 
 import java.util.List;
 
@@ -7,9 +7,10 @@ import javax.jws.WebService;
 
 import org.danielli.xultimate.remoting.dto.Account;
 import org.danielli.xultimate.remoting.service.AccountService;
+import org.danielli.xultimate.remoting.service.AccountServiceEndpoint;
 import org.springframework.stereotype.Component;
 
-@WebService(endpointInterface = "org.danielli.xultimate.remoting.cxf.AccountServiceEndpoint")
+@WebService(endpointInterface = "org.danielli.xultimate.remoting.service.AccountServiceEndpoint")
 @Component("accountServiceEndpoint")
 public class AccountServiceEndpointImpl implements AccountServiceEndpoint {
 	@Resource(name = "accountService")

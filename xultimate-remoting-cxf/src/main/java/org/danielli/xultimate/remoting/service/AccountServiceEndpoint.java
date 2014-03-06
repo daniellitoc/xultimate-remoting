@@ -1,4 +1,4 @@
-package org.danielli.xultimate.remoting.cxf;
+package org.danielli.xultimate.remoting.service;
 
 import java.util.List;
 

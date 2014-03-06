@@ -29,7 +29,7 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
 		http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 		
-	<context:component-scan base-package="org.danielli.xultimate.remoting.web" />
+	<context:component-scan base-package="org.danielli.xultimate.remoting.web.controller" />
 	
 	<mvc:annotation-driven />
 	
@@ -44,5 +44,5 @@
 		</property>
 	</bean>
 	
-	<jaxws:client id="remoteCxfAccountServiceEndpoint" serviceClass="org.danielli.xultimate.remoting.cxf.AccountServiceEndpoint"  address="http://localhost:8082/xultimate-remoting-cxf/services/AccountService" />
+	<jaxws:client id="remoteCxfAccountServiceEndpoint" serviceClass="org.danielli.xultimate.remoting.service.AccountServiceEndpoint"  address="http://localhost:8082/xultimate-remoting-cxf/services/AccountService" />
 </beans>

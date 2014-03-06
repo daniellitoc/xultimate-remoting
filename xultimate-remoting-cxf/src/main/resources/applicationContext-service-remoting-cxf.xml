@@ -29,7 +29,6 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
 		http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 		
-	<context:component-scan base-package="org.danielli.xultimate.remoting.cxf" />
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 	<jaxws:endpoint id="cxfAccountServiceEndpoint" implementor="#accountServiceEndpoint" address="/AccountService" />
