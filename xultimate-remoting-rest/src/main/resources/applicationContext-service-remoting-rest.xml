@@ -26,13 +26,20 @@
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
-	<context:component-scan base-package="org.danielli.xultimate.service" />
+	
+	<bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller" p:packagesToScan="org.danielli.xultimate" />
+	<bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter" />
+	<bean id="byteArrayHttpMessageConverter" class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+	<bean id="bufferedImageHttpMessageConverter" class="org.springframework.http.converter.BufferedImageHttpMessageConverter" />
+    <bean id="marshallingHttpMessageConverter" class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter" c:marshaller-ref="marshaller" />
+    <bean id="fastJsonHttpMessageConverter" class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter" />
 
 	<util:list id="messageConverters">
-		<bean class="org.springframework.http.converter.StringHttpMessageConverter" />
-		<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
-		<bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter" />
-		<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+		<ref bean="stringHttpMessageConverter"/>
+		<ref bean="byteArrayHttpMessageConverter"/>
+		<ref bean="bufferedImageHttpMessageConverter"/>
+		<ref bean="marshallingHttpMessageConverter"/>
+		<ref bean="fastJsonHttpMessageConverter"/>
 	</util:list>
 
 	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate" p:messageConverters-ref="messageConverters" />
