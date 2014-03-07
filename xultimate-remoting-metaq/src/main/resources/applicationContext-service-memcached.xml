@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:oxm="http://www.springframework.org/schema/oxm"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/oxm http://www.springframework.org/schema/oxm/spring-oxm.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+		
+	<!-- XMemcached客户端 -->
+	<bean name="memcachedClientBuilder" class="net.rubyeye.xmemcached.XMemcachedClientBuilder">
+		<constructor-arg name="addressMap">
+			<bean class="net.rubyeye.xmemcached.utils.AddrUtil" factory-method="getAddressMap">
+				<!-- <constructor-arg index="0" value="127.0.0.1:11211 127.0.0.1:11212 127.0.0.1:11213 127.0.0.1:11214 127.0.0.1:11215" /> -->
+				<constructor-arg index="0" value="127.0.0.1:11211" />
+			</bean> 
+		</constructor-arg>
+		 <!-- server's weights -->
+		<constructor-arg name="weights">
+			<list>
+				<value>1</value>
+				<!--
+				<value>1</value>
+				<value>1</value>
+				<value>1</value>
+				<value>1</value>
+				-->
+			</list>
+		</constructor-arg>
+		<!-- AuthInfo map,only valid on 1.2.5 or later version 
+        <property name="authInfoMap">
+	    	<map>
+	        	<entry>
+	        		<key>
+	        			<bean class="java.net.InetSocketAddress" c:hostname="host1" c:port="port1" />
+	        		</key>
+	        		<value>
+		        		<bean class="net.rubyeye.xmemcached.auth.AuthInfo" factory-method="typical">
+		                	<constructor-arg index="0" value="cacheuser" />
+		                    <constructor-arg index="1" value="123456" />
+		            	</bean>
+	        		</value>
+	        	</entry>
+	   		</map>
+        </property>
+        -->
+		<!-- nio connection pool size -->
+		<property name="connectionPoolSize" value="2" />
+		<!-- nio connection timeout -->
+		<property name="connectTimeout" value="60000" />
+		<!-- get、set etc operatoin default timeout -->
+		<property name="opTimeout" value="2000"></property>
+		<!-- Use binary protocol,default is TextCommandFactory -->
+		<property name="commandFactory">
+			<bean class="net.rubyeye.xmemcached.command.BinaryCommandFactory" />
+		</property>
+		 <!-- Distributed strategy -->
+		<property name="sessionLocator">
+			<bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator" />
+		</property>
+		<!-- Serializing transcoder -->
+		<property name="transcoder">
+			<bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder" p:compressionThreshold="1024" />
+		</property>
+		<!-- ByteBuffer allocator -->
+		<property name="bufferAllocator">
+			<bean class="net.rubyeye.xmemcached.buffer.SimpleBufferAllocator" />
+		</property>
+		<!-- Failure mode -->
+		<property name="failureMode" value="true" />
+	</bean>
+	
+	<bean id="serializingTranscoder" class="org.danielli.xultimate.context.kvStore.memcached.xmemcached.SerializingTranscoder" 
+				p:compressionThreshold="1024"
+				p:booleanSerializer-ref="booleanSerializer"
+				p:byteSerializer-ref="byteSerializer"
+				p:dateSerializer-ref="dateSerializer"
+				p:doubleSerializer-ref="doubleSerializer"
+				p:floatSerializer-ref="floatSerializer"
+				p:integerSerializer-ref="integerSerializer"
+				p:longSerializer-ref="longSerializer"
+				p:rpcSerializer-ref="rpcProtobufSerializer"
+				p:stringSerializer-ref="stringSerializer" />
+	
+	<bean id="memcachedClient" factory-bean="memcachedClientBuilder" factory-method="build" destroy-method="shutdown" />
+  	
+  	<bean id="xmemcachedTemplate" class="org.danielli.xultimate.context.kvStore.memcached.xmemcached.support.XMemcachedTemplate" p:memcachedClient-ref="memcachedClient" />
+</beans>
