@@ -25,6 +25,25 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
+			<artifactId>xultimate-context</artifactId>
+			<version>${project.version}</version>
+			<exclusions>
+				<exclusion>
+		    		<groupId>io.netty</groupId>
+		    		<artifactId>netty-transport</artifactId>
+		    	</exclusion>
+		    	<exclusion>
+ 					<groupId>io.netty</groupId>
+		    		<artifactId>netty-codec</artifactId>		    	
+		    	</exclusion>
+				<exclusion>
+		    		<groupId>io.netty</groupId>
+		    		<artifactId>netty-handler</artifactId>				
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>xultimate-webmvc</artifactId>
 			<version>${project.version}</version>
 		</dependency>
