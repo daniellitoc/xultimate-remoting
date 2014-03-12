@@ -1,21 +1,14 @@
 package org.danielli.xultimate.remoting.dubbo.serialize.support.kryo;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Type;
 
-import org.danielli.xultimate.core.serializer.java.BooleanSerializer;
-import org.danielli.xultimate.core.serializer.java.ByteSerializer;
-import org.danielli.xultimate.core.serializer.java.DoubleSerializer;
-import org.danielli.xultimate.core.serializer.java.FloatSerializer;
-import org.danielli.xultimate.core.serializer.java.IntegerSerializer;
-import org.danielli.xultimate.core.serializer.java.LongSerializer;
-import org.danielli.xultimate.core.serializer.java.ShortSerializer;
-import org.danielli.xultimate.core.serializer.java.StringSerializer;
-import org.danielli.xultimate.core.serializer.kryo.RpcKryoSerializer;
+import org.danielli.xultimate.remoting.SerializerTotal;
 import org.danielli.xultimate.remoting.dubbo.serialize.support.JavaAbstractDataInput;
 
 import com.alibaba.dubbo.common.serialize.ObjectInput;
+import com.esotericsoftware.kryo.io.Input;
 
 /**
  * Kryo对象解序列化。。
@@ -25,23 +18,11 @@ import com.alibaba.dubbo.common.serialize.ObjectInput;
  */
 public class KryoObjectInput extends JavaAbstractDataInput implements ObjectInput {
 
-	private RpcKryoSerializer rpcKryoSerializer;
-	private InputStream inputStream;
+	private Input input;
 	
-	public KryoObjectInput(InputStream inputStream, 
-			BooleanSerializer booleanSerializer, 
-			ByteSerializer byteSerializer,
-			ShortSerializer shortSerializer,
-			IntegerSerializer integerSerializer,
-			LongSerializer longSerializerr,
-			FloatSerializer floatSerializer,
-			DoubleSerializer doubleSerializer,
-			StringSerializer stringSerializer,
-			RpcKryoSerializer rpcKryoSerializer) throws IOException {
-		super(inputStream, booleanSerializer, byteSerializer, shortSerializer, integerSerializer, longSerializerr, floatSerializer, doubleSerializer, stringSerializer);
-		
-		this.inputStream = inputStream;
-		this.rpcKryoSerializer = rpcKryoSerializer;
+	public KryoObjectInput(BufferedInputStream inputStream) throws IOException {
+		super(inputStream);
+		this.input = new Input(inputStream);
 	}
 
 	@Override
@@ -49,7 +30,7 @@ public class KryoObjectInput extends JavaAbstractDataInput implements ObjectInpu
 		byte b = readByte();
 		if( b == 0 )
 			return null;
-		return this.rpcKryoSerializer.deserialize(inputStream, Object.class);
+		return SerializerTotal.rpcKryoSerializer.deserialize(input, Object.class);
 	}
 
 	@Override
@@ -57,7 +38,7 @@ public class KryoObjectInput extends JavaAbstractDataInput implements ObjectInpu
 		byte b = readByte();
 		if( b == 0 )
 			return null;
-		return this.rpcKryoSerializer.deserialize(inputStream, cls);
+		return SerializerTotal.rpcKryoSerializer.deserialize(input, cls);
 	}
 
 	@Override
@@ -65,6 +46,6 @@ public class KryoObjectInput extends JavaAbstractDataInput implements ObjectInpu
 		byte b = readByte();
 		if( b == 0 )
 			return null;
-		return this.rpcKryoSerializer.deserialize(inputStream, cls);
+		return SerializerTotal.rpcKryoSerializer.deserialize(input, cls);
 	}
 }

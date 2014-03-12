@@ -28,12 +28,12 @@ public class Consumer {
         PerformanceMonitor.summarize(new AdvancedStopWatchSummary(true));
         PerformanceMonitor.remove();
         // dubbo running time: 0000:00:00 0:00:12.614
-        // hessian2 running time: 0000:00:00 0:00:08.967
+        // hessian2 running time: 0000:00:00 0:00:08.151 (8151496677 ns) (8151496 us) (8151 ms)
         // java running time: 0000:00:00 0:00:11.082
         // compactedjava running time: 0000:00:00 0:00:10.744
-        // kryo running time: 0000:00:00 0:00:09.133
-        // protostuff running time: 0000:00:00 0:00:10.115
-        // protobuf running time: 0000:00:00 0:00:10.440
+        // kryo start timestamp(ns): 232625325397, stop timestamp(ns): 240019904337, running time: 0000:00:00 0:00:07.394 (7394578940 ns) (7394578 us) (7394 ms) (017.25344%)
+        // protostuff start timestamp(ns): 551241780325, stop timestamp(ns): 560255012143, running time: 0000:00:00 0:00:09.013 (9013231818 ns) (9013231 us) (9013 ms) (018.50452%)
+        // protobuf start timestamp(ns): 810724875561, stop timestamp(ns): 819783660026, running time: 0000:00:00 0:00:09.058 (9058784465 ns) (9058784 us) (9058 ms) (018.33149%)
         context.close();
     }
 }

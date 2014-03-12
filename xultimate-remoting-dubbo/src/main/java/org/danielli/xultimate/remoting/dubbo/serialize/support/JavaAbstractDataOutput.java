@@ -1,16 +1,9 @@
 package org.danielli.xultimate.remoting.dubbo.serialize.support;
 
+import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 
-import org.danielli.xultimate.core.serializer.java.BooleanSerializer;
-import org.danielli.xultimate.core.serializer.java.ByteSerializer;
-import org.danielli.xultimate.core.serializer.java.DoubleSerializer;
-import org.danielli.xultimate.core.serializer.java.FloatSerializer;
-import org.danielli.xultimate.core.serializer.java.IntegerSerializer;
-import org.danielli.xultimate.core.serializer.java.LongSerializer;
-import org.danielli.xultimate.core.serializer.java.ShortSerializer;
-import org.danielli.xultimate.core.serializer.java.StringSerializer;
+import org.danielli.xultimate.remoting.SerializerTotal;
 
 import com.alibaba.dubbo.common.serialize.DataOutput;
 
@@ -22,77 +15,45 @@ import com.alibaba.dubbo.common.serialize.DataOutput;
  */
 public abstract class JavaAbstractDataOutput implements DataOutput {
 
-	private OutputStream outputStream;
+	private BufferedOutputStream outputStream;
 	
-	private BooleanSerializer booleanSerializer;
-	
-	private ByteSerializer byteSerializer;
-	
-	private ShortSerializer shortSerializer;
-	
-	private IntegerSerializer integerSerializer;
-	
-	private LongSerializer longSerializer;
-	
-	private FloatSerializer floatSerializer;
-	
-	private DoubleSerializer doubleSerializer;
-	
-	private StringSerializer stringSerializer;
-	
-	public JavaAbstractDataOutput(OutputStream outputStream, 
-			BooleanSerializer booleanSerializer, 
-			ByteSerializer byteSerializer,
-			ShortSerializer shortSerializer,
-			IntegerSerializer integerSerializer,
-			LongSerializer longSerializerr,
-			FloatSerializer floatSerializer,
-			DoubleSerializer doubleSerializer,
-			StringSerializer stringSerializer) {
+	public JavaAbstractDataOutput(BufferedOutputStream outputStream) {
 		this.outputStream = outputStream;
-		this.booleanSerializer = booleanSerializer;
-		this.byteSerializer = byteSerializer;
-		this.shortSerializer = shortSerializer;
-		this.integerSerializer = integerSerializer;
-		this.longSerializer = longSerializerr;
-		this.floatSerializer = floatSerializer;
-		this.doubleSerializer = doubleSerializer;
-		this.stringSerializer = stringSerializer;
 	}
 	
 	@Override
 	public void writeBool(boolean v) throws IOException {
-		booleanSerializer.serialize(v, outputStream);
+		SerializerTotal.booleanSerializer.serialize(v, outputStream);
 	}
 
 	@Override
 	public void writeByte(byte v) throws IOException {
-		byteSerializer.serialize(v, outputStream);
+		SerializerTotal.byteSerializer.serialize(v, outputStream);
 	}
 
 	@Override
 	public void writeShort(short v) throws IOException {
-		shortSerializer.serialize(v, outputStream);
+		SerializerTotal.shortSerializer.serialize(v, outputStream);
 	}
 
 	@Override
 	public void writeInt(int v) throws IOException {
-		integerSerializer.serialize(v, outputStream);
+		SerializerTotal.integerSerializer.serialize(v, outputStream);
 	}
 
 	@Override
 	public void writeLong(long v) throws IOException {
-		longSerializer.serialize(v, outputStream);
+		SerializerTotal.longSerializer.serialize(v, outputStream);
 	}
 
 	@Override
 	public void writeFloat(float v) throws IOException {
-		floatSerializer.serialize(v, outputStream);
+		SerializerTotal.floatSerializer.serialize(v, outputStream);
 	}
 
 	@Override
 	public void writeDouble(double v) throws IOException {
-		doubleSerializer.serialize(v, outputStream);
+		SerializerTotal.doubleSerializer.serialize(v, outputStream);
 	}
 
 	@Override
@@ -120,7 +81,7 @@ public abstract class JavaAbstractDataOutput implements DataOutput {
 			writeInt(-1);
 		} else {
 			writeInt(v.length());
-			stringSerializer.serialize(v, outputStream);
+			SerializerTotal.stringSerializer.serialize(v, outputStream);
 		}
 	}
 }
