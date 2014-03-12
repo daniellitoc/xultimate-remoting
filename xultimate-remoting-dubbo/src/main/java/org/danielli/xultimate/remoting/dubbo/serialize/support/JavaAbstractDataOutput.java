@@ -8,7 +8,7 @@ import org.danielli.xultimate.remoting.SerializerTotal;
 import com.alibaba.dubbo.common.serialize.DataOutput;
 
 /**
- * Java抽象数据序列化。。
+ * Java抽象数据序列化。回头在研究下protostuff。看看能不能直接用他提供的。
  * 
  * @author Daniel Li
  * @since 18 Jun 2013

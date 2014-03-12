@@ -9,7 +9,7 @@ import org.danielli.xultimate.remoting.dubbo.serialize.support.JavaAbstractDataO
 import com.alibaba.dubbo.common.serialize.ObjectOutput;
 
 /**
- * Kryo对象序列化。。
+ * Kryo对象序列化。
  * 
  * @author Daniel Li
  * @since 18 Jun 2013

@@ -11,7 +11,7 @@ import com.alibaba.dubbo.common.serialize.ObjectInput;
 import com.esotericsoftware.kryo.io.Input;
 
 /**
- * Kryo对象解序列化。。
+ * Kryo对象解序列化。
  * 
  * @author Daniel Li
  * @since 18 Jun 2013

@@ -10,7 +10,7 @@ import org.danielli.xultimate.remoting.dubbo.serialize.support.JavaAbstractDataI
 import com.alibaba.dubbo.common.serialize.ObjectInput;
 
 /**
- * Protostuff对象序列化。。
+ * Protostuff对象序列化。
  * 
  * @author Daniel Li
  * @since 18 Jun 2013
