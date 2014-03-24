@@ -1,6 +1,6 @@
 # xultimate-remoting #
 
-* 起初只是提供Java中一些分布式远程调用的脚手架，都是基于Spring来构建的，这样便于需要的时候提取并修改。
+* 起初只是提供Java中一些分布式远程调用的ShowCase，都是基于Spring来构建的，这样便于需要的时候提取并修改。
 * 基础的分布式调用包括RMI、HttpInvoker、Hessian、Burlap；异步调用提供ActiveMQ；Web服务则包括了REST、CXF。
 * 后来因为所参与的项目使用了RabbitMQ，而原有的封装经常会出现问题(过慢、CPU负载过高)导致应用崩溃，因此我重新封装了一套。客户端通过RabbitMQClientTemplate发送可序列化对象，序列化协议使用原有的Hessian协议，服务端搬照Tomcat的JIoEndpoint写法并采用信号量进行并发控制，中间通过JobService进行任务分配，最终通过定义不同的Job\<XXXDto\>完成具体任务。整个配置通过Spring定义。最终经过简单测试，发现性能有提升400倍左右。然后才开始真正关注和思考分布式调用。
 * 最终决定公共服务采用Spring MVC开发REST + JSON，同步调用采用Dubbo，异步调用采用MetaQ。
