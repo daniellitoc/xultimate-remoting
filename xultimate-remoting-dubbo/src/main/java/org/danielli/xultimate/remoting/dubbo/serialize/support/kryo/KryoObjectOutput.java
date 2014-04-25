@@ -19,7 +19,7 @@ public class KryoObjectOutput extends JavaAbstractDataOutput implements ObjectOu
 	private BufferedOutputStream outputStream;
 	
 	public KryoObjectOutput(BufferedOutputStream outputStream) throws IOException {
-		super(outputStream);
+		super(SerializerTotal.KRYO_BASE_TYPE_SERIALIZER, outputStream);
 		this.outputStream = outputStream;
 	}
 
@@ -30,11 +30,6 @@ public class KryoObjectOutput extends JavaAbstractDataOutput implements ObjectOu
 
 	@Override
 	public void writeObject(Object obj) throws IOException {
-		if( obj == null ) {
-			writeByte((byte) 0);
-		} else {
-			writeByte((byte) 1);
-			SerializerTotal.rpcKryoSerializer.serialize(obj, outputStream);
-		}
+		baseTypeSerializer.serialize(obj, outputStream);
 	}
 }

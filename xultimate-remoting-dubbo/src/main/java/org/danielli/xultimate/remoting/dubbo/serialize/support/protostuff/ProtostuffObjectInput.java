@@ -20,31 +20,22 @@ public class ProtostuffObjectInput extends JavaAbstractDataInput implements Obje
 	private BufferedInputStream inputStream;
 	
 	public ProtostuffObjectInput(BufferedInputStream inputStream) {
-		super(inputStream);
+		super(SerializerTotal.PROTOSTUFF_BASE_TYPE_DESERIALIZER, inputStream);
 		this.inputStream = inputStream;
 	}
 	
 	@Override
 	public Object readObject() throws IOException, ClassNotFoundException {
-		byte b = readByte();
-		if( b == 0 )
-			return null;
-		return SerializerTotal.rpcProtostuffSerializer.deserialize(inputStream, Object.class);
+		return baseTypeDeserializer.deserialize(inputStream, Object.class);
 	}
 
 	@Override
 	public <T> T readObject(Class<T> cls) throws IOException, ClassNotFoundException {
-		byte b = readByte();
-		if( b == 0 )
-			return null;
-		return SerializerTotal.rpcProtostuffSerializer.deserialize(inputStream, cls);
+		return baseTypeDeserializer.deserialize(inputStream, cls);
 	}
 
 	@Override
 	public <T> T readObject(Class<T> cls, Type type) throws IOException, ClassNotFoundException {
-		byte b = readByte();
-		if( b == 0 )
-			return null;
-		return SerializerTotal.rpcProtostuffSerializer.deserialize(inputStream, cls);
+		return baseTypeDeserializer.deserialize(inputStream, cls);
 	}
 }

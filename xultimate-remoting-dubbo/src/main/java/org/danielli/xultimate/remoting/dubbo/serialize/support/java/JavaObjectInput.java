@@ -1,4 +1,4 @@
-package org.danielli.xultimate.remoting.dubbo.serialize.support.protobuf;
+package org.danielli.xultimate.remoting.dubbo.serialize.support.java;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -10,17 +10,17 @@ import org.danielli.xultimate.remoting.dubbo.serialize.support.JavaAbstractDataI
 import com.alibaba.dubbo.common.serialize.ObjectInput;
 
 /**
- * Protobuf对象解序列化。
+ * Java对象解序列化。
  * 
  * @author Daniel Li
  * @since 18 Jun 2013
  */
-public class ProtobufObjectInput extends JavaAbstractDataInput implements ObjectInput {
-	
+public class JavaObjectInput extends JavaAbstractDataInput implements ObjectInput {
+
 	private BufferedInputStream inputStream;
 	
-	public ProtobufObjectInput(BufferedInputStream inputStream) {
-		super(SerializerTotal.PROTOBUF_BASE_TYPE_DESERIALIZER, inputStream);
+	public JavaObjectInput(BufferedInputStream inputStream) throws IOException {
+		super(SerializerTotal.OBJECT_BASE_TYPE_DESERIALIZER, inputStream);
 		this.inputStream = inputStream;
 	}
 

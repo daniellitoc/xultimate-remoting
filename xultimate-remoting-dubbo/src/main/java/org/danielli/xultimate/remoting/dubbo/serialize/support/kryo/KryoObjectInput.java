@@ -21,31 +21,22 @@ public class KryoObjectInput extends JavaAbstractDataInput implements ObjectInpu
 	private Input input;
 	
 	public KryoObjectInput(BufferedInputStream inputStream) throws IOException {
-		super(inputStream);
+		super(SerializerTotal.KRYO_BASE_TYPE_DESERIALIZER, inputStream);
 		this.input = new Input(inputStream);
 	}
 
 	@Override
 	public Object readObject() throws IOException, ClassNotFoundException {
-		byte b = readByte();
-		if( b == 0 )
-			return null;
-		return SerializerTotal.rpcKryoSerializer.deserialize(input, Object.class);
+		return baseTypeDeserializer.deserialize(input, Object.class);
 	}
 
 	@Override
 	public <T> T readObject(Class<T> cls) throws IOException, ClassNotFoundException {
-		byte b = readByte();
-		if( b == 0 )
-			return null;
-		return SerializerTotal.rpcKryoSerializer.deserialize(input, cls);
+		return baseTypeDeserializer.deserialize(input, cls);
 	}
 
 	@Override
 	public <T> T readObject(Class<T> cls, Type type) throws IOException, ClassNotFoundException {
-		byte b = readByte();
-		if( b == 0 )
-			return null;
-		return SerializerTotal.rpcKryoSerializer.deserialize(input, cls);
+		return baseTypeDeserializer.deserialize(input, cls);
 	}
 }

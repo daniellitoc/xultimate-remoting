@@ -1,4 +1,4 @@
-package org.danielli.xultimate.remoting.dubbo.serialize.support.protostuff;
+package org.danielli.xultimate.remoting.dubbo.serialize.support.java;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -9,20 +9,20 @@ import org.danielli.xultimate.remoting.dubbo.serialize.support.JavaAbstractDataO
 import com.alibaba.dubbo.common.serialize.ObjectOutput;
 
 /**
- * Protostuff对象解序列化。
+ * Java对象序列化。
  * 
  * @author Daniel Li
  * @since 18 Jun 2013
  */
-public class ProtostuffObjectOutput extends JavaAbstractDataOutput implements ObjectOutput {
+public class JavaObjectOutput extends JavaAbstractDataOutput implements ObjectOutput {
 
 	private BufferedOutputStream outputStream;
 	
-	public ProtostuffObjectOutput(BufferedOutputStream outputStream) {
-		super(SerializerTotal.PROTOSTUFF_BASE_TYPE_SERIALIZER, outputStream);	
+	public JavaObjectOutput(BufferedOutputStream outputStream) throws IOException {
+		super(SerializerTotal.OBJECT_BASE_TYPE_SERIALIZER, outputStream);
 		this.outputStream = outputStream;
 	}
-	
+
 	@Override
 	public void flushBuffer() throws IOException {
 		outputStream.flush();

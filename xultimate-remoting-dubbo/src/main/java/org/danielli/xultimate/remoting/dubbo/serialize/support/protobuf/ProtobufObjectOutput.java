@@ -19,7 +19,7 @@ public class ProtobufObjectOutput extends JavaAbstractDataOutput implements Obje
 	private BufferedOutputStream outputStream;
 	
 	public ProtobufObjectOutput(BufferedOutputStream outputStream) {
-		super(outputStream);
+		super(SerializerTotal.PROTOBUF_BASE_TYPE_SERIALIZER, outputStream);
 		this.outputStream = outputStream;
 	}
 
@@ -30,11 +30,6 @@ public class ProtobufObjectOutput extends JavaAbstractDataOutput implements Obje
 
 	@Override
 	public void writeObject(Object obj) throws IOException {
-		if( obj == null ) {
-			writeByte((byte) 0);
-		} else {
-			writeByte((byte) 1);
-			SerializerTotal.rpcProtobufSerializer.serialize(obj, outputStream);
-		}
+		baseTypeSerializer.serialize(obj, outputStream);
 	}
 }

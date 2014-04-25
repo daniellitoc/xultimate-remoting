@@ -3,77 +3,69 @@ package org.danielli.xultimate.remoting.dubbo.serialize.support;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 
-import org.danielli.xultimate.remoting.SerializerTotal;
+import org.danielli.xultimate.core.serializer.support.BaseTypeDeserializer;
 
 import com.alibaba.dubbo.common.serialize.DataInput;
 
 /**
- * Java抽象数据解序列化。回头在研究下protostuff。看看能不能直接用他提供的。
+ * Java抽象数据解序列化。
  * 
  * @author Daniel Li
  * @since 18 Jun 2013
  */
 public abstract class JavaAbstractDataInput implements DataInput {
 
-	private BufferedInputStream inputStream;
+	protected BaseTypeDeserializer baseTypeDeserializer;
 	
-	public JavaAbstractDataInput(BufferedInputStream inputStream) {
+	private BufferedInputStream inputStream;
+
+	public JavaAbstractDataInput(BaseTypeDeserializer baseTypeDeserializer, BufferedInputStream inputStream) {
 		this.inputStream = inputStream;
+		this.baseTypeDeserializer = baseTypeDeserializer;
 	}
 	
 	@Override
 	public boolean readBool() throws IOException {
-		return SerializerTotal.booleanSerializer.deserialize(inputStream, Boolean.class);
+		return baseTypeDeserializer.deserializeBoolean(inputStream);
 	}
 
 	@Override
 	public byte readByte() throws IOException {
-		return SerializerTotal.byteSerializer.deserialize(inputStream, Byte.class);
+		return baseTypeDeserializer.deserializeByte(inputStream);
 	}
 
 	@Override
 	public short readShort() throws IOException {
-		return SerializerTotal.shortSerializer.deserialize(inputStream, Short.class);
+		return baseTypeDeserializer.deserializeShort(inputStream);
 	}
 
 	@Override
 	public int readInt() throws IOException {
-		return SerializerTotal.integerSerializer.deserialize(inputStream, Integer.class);
+		return baseTypeDeserializer.deserializeInt(inputStream);
 	}
 
 	@Override
 	public long readLong() throws IOException {
-		return SerializerTotal.longSerializer.deserialize(inputStream, Long.class);
+		return baseTypeDeserializer.deserializeLong(inputStream);
 	}
 
 	@Override
 	public float readFloat() throws IOException {
-		return SerializerTotal.floatSerializer.deserialize(inputStream, Float.class);
+		return baseTypeDeserializer.deserializeFloat(inputStream);
 	}
 
 	@Override
 	public double readDouble() throws IOException {
-		return SerializerTotal.doubleSerializer.deserialize(inputStream, Double.class);
+		return baseTypeDeserializer.deserializeDouble(inputStream);
 	}
 	
 	@Override
 	public byte[] readBytes() throws IOException {
-        int len = readInt();
-		if( len < 0 )
-			return null;
-		if( len == 0 )
-			return new byte[0];
-
-		byte[] b = new byte[len];
-		inputStream.read(b);
-		return b;
+		return baseTypeDeserializer.deserializeBytes(inputStream);
 	}
 	
 	@Override
 	public String readUTF() throws IOException {
-		int len = readInt();
-		if( len < 0 )
-			return null;
-		return SerializerTotal.stringSerializer.deserialize(inputStream, String.class);
+		return baseTypeDeserializer.deserializeString(inputStream);
 	}
 }

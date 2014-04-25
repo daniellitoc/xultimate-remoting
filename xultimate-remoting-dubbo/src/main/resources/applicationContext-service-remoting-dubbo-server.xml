@@ -31,7 +31,7 @@
 	<!-- 服务端发布服务 -->
 	<!-- 提供方应用信息，用于计算依赖关系 -->
     <dubbo:application name="xultimate-remoting-dubbo" logger="slf4j" compiler="javassist" />
-    <dubbo:provider proxy="javassist" serialization="protobuf" />
+    <dubbo:provider proxy="javassist" serialization="protostuff" />
     <!-- 使用multicast广播注册中心暴露服务地址,check="true"表示注册中心启动时检查 -->
     <dubbo:registry id="registry" address="multicast://224.5.6.7:1234" check="true" username="xultimate" password="password" />
     <!-- 用dubbo协议在20880端口暴露服务 -->

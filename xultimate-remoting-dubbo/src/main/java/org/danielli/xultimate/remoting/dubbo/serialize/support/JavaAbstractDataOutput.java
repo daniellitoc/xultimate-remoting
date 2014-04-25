@@ -3,85 +3,74 @@ package org.danielli.xultimate.remoting.dubbo.serialize.support;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 
-import org.danielli.xultimate.remoting.SerializerTotal;
+import org.danielli.xultimate.core.serializer.support.BaseTypeSerializer;
 
 import com.alibaba.dubbo.common.serialize.DataOutput;
 
 /**
- * Java抽象数据序列化。回头在研究下protostuff。看看能不能直接用他提供的。
+ * Java抽象数据序列化。
  * 
  * @author Daniel Li
  * @since 18 Jun 2013
  */
 public abstract class JavaAbstractDataOutput implements DataOutput {
 
+	protected BaseTypeSerializer baseTypeSerializer;
+	
 	private BufferedOutputStream outputStream;
 	
-	public JavaAbstractDataOutput(BufferedOutputStream outputStream) {
+	public JavaAbstractDataOutput(BaseTypeSerializer baseTypeSerializer, BufferedOutputStream outputStream) {
 		this.outputStream = outputStream;
+		this.baseTypeSerializer = baseTypeSerializer;
 	}
 	
 	@Override
 	public void writeBool(boolean v) throws IOException {
-		SerializerTotal.booleanSerializer.serialize(v, outputStream);
+		baseTypeSerializer.serializeBoolean(v, outputStream);
 	}
 
 	@Override
 	public void writeByte(byte v) throws IOException {
-		SerializerTotal.byteSerializer.serialize(v, outputStream);
+		baseTypeSerializer.serializeByte(v, outputStream);
 	}
 
 	@Override
 	public void writeShort(short v) throws IOException {
-		SerializerTotal.shortSerializer.serialize(v, outputStream);
+		baseTypeSerializer.serializeShort(v, outputStream);
 	}
 
 	@Override
 	public void writeInt(int v) throws IOException {
-		SerializerTotal.integerSerializer.serialize(v, outputStream);
+		baseTypeSerializer.serializeInt(v, outputStream);
 	}
 
 	@Override
 	public void writeLong(long v) throws IOException {
-		SerializerTotal.longSerializer.serialize(v, outputStream);
+		baseTypeSerializer.serializeLong(v, outputStream);
 	}
 
 	@Override
 	public void writeFloat(float v) throws IOException {
-		SerializerTotal.floatSerializer.serialize(v, outputStream);
+		baseTypeSerializer.serializeFloat(v, outputStream);
 	}
 
 	@Override
 	public void writeDouble(double v) throws IOException {
-		SerializerTotal.doubleSerializer.serialize(v, outputStream);
+		baseTypeSerializer.serializeDouble(v, outputStream);
 	}
 
 	@Override
 	public void writeBytes(byte[] v) throws IOException {
-        if (v == null) {
-            writeInt(-1);
-        } else {
-            writeBytes(v, 0, v.length);
-        }
+		baseTypeSerializer.serializeBytes(v, outputStream);
 	}
 
 	@Override
 	public void writeBytes(byte[] v, int off, int len) throws IOException {
-        if (v == null) {
-            writeInt(-1);
-        } else {
-            writeInt(len);
-            outputStream.write(v, off, len);
-        }
+		baseTypeSerializer.serializeBytes(v, off, len, outputStream);
 	}
 	
 	@Override
 	public void writeUTF(String v) throws IOException {
-		if( v == null ) {
-			writeInt(-1);
-		} else {
-			writeInt(v.length());
-			SerializerTotal.stringSerializer.serialize(v, outputStream);
-		}
+		baseTypeSerializer.serializeString(v, outputStream);
 	}
 }
