@@ -2,14 +2,18 @@ package org.danielli.xultimate.remoting.service.impl;
 
 import org.danielli.xultimate.remoting.dto.Logging;
 import org.danielli.xultimate.remoting.service.LoggingService;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component("loggingServiceImpl")
+@Service("loggingServiceImpl")
 public class LoggingServiceImpl implements LoggingService {
 
 	@Override
 	public void saveLogging(Logging logging) {
-		System.out.println(logging.getDate() + ":" + logging.getContent());
+		if (logging == null) {
+			System.out.println("Logging is null");
+		} else {
+			System.out.println(logging.getDate() + ":" + logging.getContent());
+		}
 	}
 
 }

@@ -1,7 +1,11 @@
 package org.danielli.xultimate.remoting.metaq.support;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+
 import org.danielli.xultimate.core.serializer.Deserializer;
 import org.danielli.xultimate.core.serializer.Serializer;
+import org.danielli.xultimate.util.io.IOUtils;
 
 import com.taobao.metamorphosis.client.extension.spring.MessageBodyConverter;
 import com.taobao.metamorphosis.exception.MetaClientException;
@@ -20,12 +24,23 @@ public class DefaultMessageBodyConverter implements MessageBodyConverter<Object>
 	
 	@Override
 	public byte[] toByteArray(Object body) throws MetaClientException {
-		return serializer.serialize(body);
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		try {
+			serializer.serialize(body, outputStream);
+		} finally {
+			IOUtils.closeQuietly(outputStream);
+		}
+		return outputStream.toByteArray();
 	}
 
 	@Override
 	public Object fromByteArray(byte[] bs) throws MetaClientException {
-		return deserializer.deserialize(bs, Object.class);
+		ByteArrayInputStream inputStream = new ByteArrayInputStream(bs);
+		try {
+			return deserializer.deserialize(inputStream, Object.class);
+		} finally {
+			IOUtils.closeQuietly(inputStream);
+		}
 	}
 	
 	/**

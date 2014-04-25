@@ -1,5 +1,7 @@
 package org.danielli.xultimate.remoting.web.controller;
 
+import httl.util.StringUtils;
+
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -20,13 +22,15 @@ public class LoggingController {
 	public LoggingService loggingService;
 	
 	@RequestMapping(method = { RequestMethod.GET })
-	public String saveLogging(@RequestParam String content, ModelMap modelMap) {
-		Logging logging = new Logging();
-		logging.setContent(content);
-		logging.setDate(new Date());
-		
-		loggingService.saveLogging(logging);
-
+	public String saveLogging(@RequestParam(required = false) String content, ModelMap modelMap) {
+		if (!StringUtils.isEmpty(content)) {
+			Logging logging = new Logging();
+			logging.setContent(content);
+			logging.setDate(new Date());
+			loggingService.saveLogging(logging);
+		} else {
+			loggingService.saveLogging(null);
+		}
 		return "logging_save_success";
 	}
 }
