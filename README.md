@@ -64,3 +64,5 @@
 * 提供KryoObjectInput、KryoObjectOutput、KryoSerialization，完成Kryo序列化/解序列化功能。
 * 提供ProtobufObjectInput、ProtobufObjectOutput、ProtobufSerialization，完成Protobuf序列化/解序列化功能。
 * 提供ProtostuffObjectInput、ProtostuffObjectOutput、ProtostuffSerialization，完成Protostuff序列化/解序列化功能。
+* 提供CuratorFrameworkFactoryBean，用于通过Spring创建CuratorFramework实例。
+* 提供SetACLCommandExecutor，用于执行setACL指令。
