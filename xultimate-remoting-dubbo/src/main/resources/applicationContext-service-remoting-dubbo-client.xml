@@ -33,8 +33,10 @@
 	<dubbo:protocol server="netty"/>
 	<!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
     <dubbo:application name="consumer-of-xultimate-remoting-dubbo" logger="slf4j" compiler="javassist" />
-    <!-- 使用multicast广播注册中心暴露发现服务地址 -->
-    <dubbo:registry id="registry" address="multicast://224.5.6.7:1234" username="xultimate" password="password" />
+    <!-- 使用zookeeper注册中心暴露服务地址,check="true"表示注册中心启动时检查 -->
+    <!-- address属性可以有多个，用","隔开 -->
+    <!-- username和password在创建ZooKeeper后通过addAuthInfo方法设置的，但是创建xultimate节点的create方法中的acl参数使用的world形式而不是digest形式。所以通过getData访问xultimate节点时不会进行限制。 -->
+    <dubbo:registry id="registry" protocol="zookeeper" client="curator" address="192.168.10.101:2181" username="xultimate" password="password" group="xultimate" timeout="15000" />
 	<!-- 增加引用远程服务配置 -->
 	<dubbo:reference id="remotingDubboAccountService" interface="org.danielli.xultimate.remoting.service.AccountService" version="1.0.0" protocol="dubbo" registry="registry"/>
 </beans>

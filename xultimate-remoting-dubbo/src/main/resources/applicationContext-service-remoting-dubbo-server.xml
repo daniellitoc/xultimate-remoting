@@ -32,10 +32,35 @@
 	<!-- 提供方应用信息，用于计算依赖关系 -->
     <dubbo:application name="xultimate-remoting-dubbo" logger="slf4j" compiler="javassist" />
     <dubbo:provider proxy="javassist" serialization="protostuff" />
-    <!-- 使用multicast广播注册中心暴露服务地址,check="true"表示注册中心启动时检查 -->
-    <dubbo:registry id="registry" address="multicast://224.5.6.7:1234" check="true" username="xultimate" password="password" />
+    <!-- 使用zookeeper注册中心暴露服务地址,check="true"表示注册中心启动时检查 -->
+    <!-- address属性可以有多个，用","隔开 -->
+    <!-- username和password在创建ZooKeeper后通过addAuthInfo方法设置的，但是创建xultimate节点的create方法中的acl参数使用的world形式而不是digest形式。所以通过getData访问xultimate节点时不会进行限制。 -->
+    <dubbo:registry id="registry" protocol="zookeeper" client="curator" address="192.168.10.101:2181" check="true"  username="xultimate" password="password" group="xultimate" timeout="15000" />
     <!-- 用dubbo协议在20880端口暴露服务 -->
     <dubbo:protocol name="dubbo" server="netty" port="20880" accesslog="foo/bar.log" dispatcher="all" threadpool="fixed" threads="100"/>
 	<!-- 声明需要暴露的服务接口 -->
 	<dubbo:service interface="org.danielli.xultimate.remoting.service.AccountService" ref="accountService" version="1.0.0" validation="true" cluster="failover" loadbalance="random" protocol="dubbo" registry="registry"/>
+
+	<bean id="retryNTimes" class="com.netflix.curator.retry.RetryNTimes" c:n="2147483647" c:sleepMsBetweenRetries="1000" />
+	<bean id="curatorFramework" class="org.danielli.xultimate.zookeeper.CuratorFrameworkFactoryBean" 
+		p:connectString="192.168.10.101:2181" p:retryPolicy-ref="retryNTimes"
+		p:connectionTimeoutMs="15000" p:sessionTimeoutMs="60000"
+		p:username="xultimate" p:password="password"
+		destroy-method="close" />
+	<util:constant id="all" static-field="org.apache.zookeeper.ZooDefs.Perms.ALL"/>
+	<bean id="id1String" class="org.apache.zookeeper.server.auth.DigestAuthenticationProvider" factory-method="generateDigest">
+		<constructor-arg index="0" value="xultimate:password" />
+	</bean>
+	<bean id="id1" class="org.apache.zookeeper.data.Id" c:scheme="digest" c:id-ref="id1String" />
+	<bean class="org.danielli.xultimate.zookeeper.SetACLCommandExecutor" p:inBackground="false" p:curatorFramework-ref="curatorFramework">
+		<property name="setACLDatas">
+			<util:map key-type="java.lang.String" value-type="java.util.List">
+				<entry key="/xultimate">
+					<util:list value-type="org.apache.zookeeper.data.ACL">
+						<bean class="org.apache.zookeeper.data.ACL" c:perms-ref="all" c:id-ref="id1" />
+					</util:list>
+				</entry>
+			</util:map>
+		</property>
+	</bean>
 </beans>
