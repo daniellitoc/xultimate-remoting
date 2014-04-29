@@ -39,6 +39,7 @@ public class SerializerTotal {
 		OBJECT_BASE_TYPE_DESERIALIZER.setDeserializer(nullableStreamObjectSerializer);
 		
 		RpcKryoSerializer rpcKryoSerializer = new RpcKryoSerializer();
+		rpcKryoSerializer.setBufferSize(512);
 		NullableStreamSerializer nullableStreamKryoSerializer = new NullableStreamSerializer(rpcKryoSerializer, rpcKryoSerializer);
 		KRYO_BASE_TYPE_SERIALIZER.setCheckKnownType(false);
 		KRYO_BASE_TYPE_SERIALIZER.setExportKnownTypeToOutputStream(false);
@@ -49,6 +50,7 @@ public class SerializerTotal {
 		KRYO_BASE_TYPE_DESERIALIZER.setDeserializer(nullableStreamKryoSerializer);
 		
 		RpcProtobufSerializer rpcProtobufSerializer = new RpcProtobufSerializer();
+		rpcProtobufSerializer.setBufferSize(1024);
 		NullableStreamSerializer nullableStreamProtobufSerializer = new NullableStreamSerializer(rpcProtobufSerializer, rpcProtobufSerializer);
 		PROTOBUF_BASE_TYPE_SERIALIZER.setCheckKnownType(false);
 		PROTOBUF_BASE_TYPE_SERIALIZER.setExportKnownTypeToOutputStream(false);
@@ -59,6 +61,7 @@ public class SerializerTotal {
 		PROTOBUF_BASE_TYPE_DESERIALIZER.setDeserializer(nullableStreamProtobufSerializer);
 		
 		RpcProtostuffSerializer rpcProtostuffSerializer = new RpcProtostuffSerializer();
+		rpcProtostuffSerializer.setBufferSize(1024);
 		NullableStreamSerializer nullableStreamProtostuffSerializer = new NullableStreamSerializer(rpcProtostuffSerializer, rpcProtostuffSerializer);
 		PROTOSTUFF_BASE_TYPE_SERIALIZER.setCheckKnownType(false);
 		PROTOSTUFF_BASE_TYPE_SERIALIZER.setExportKnownTypeToOutputStream(false);

@@ -14,7 +14,7 @@ public class Consumer {
         AccountService demoService = (AccountService)context.getBean("remotingDubboAccountService"); // 获取远程服务代理
         
         PerformanceMonitor.start("Dubbo Performance Test");
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 3; i++) {
         	for (int j = 0; j < 50000; j++) {
         		Account account = new Account();
                 account.setName("Daniel Li");
@@ -26,6 +26,8 @@ public class Consumer {
         PerformanceMonitor.stop();
         PerformanceMonitor.summarize(new AdvancedStopWatchSummary(true));
         PerformanceMonitor.remove();
+        // Kryo、Protobuf、Protostuff的序列化性能都要好于Hessian2很多，在xultimate-core里的测试类可以看到相关的性能测试。
+        // 目前在dubbo中应用，速度上比hessian2慢一点，不过序列化部分需要重新进行设计，且已经知道原因所在。
         // dubbo start timestamp(ns): 4311299299241, stop timestamp(ns): 4368039819226, running time: 0000:00:00 0:00:56.740 (56740519985 ns) (56740519 us) (56740 ms) (018.40126%)
         // hessian2 start timestamp(ns): 4564823105698, stop timestamp(ns): 4619882542361, running time: 0000:00:00 0:00:55.059 (55059436663 ns) (55059436 us) (55059 ms) (018.26991%)
         // java start timestamp(ns): 5826432023255, stop timestamp(ns): 5887835317613, running time: 0000:00:00 0:01:01.403 (61403294358 ns) (61403294 us) (61403 ms) (018.26744%)

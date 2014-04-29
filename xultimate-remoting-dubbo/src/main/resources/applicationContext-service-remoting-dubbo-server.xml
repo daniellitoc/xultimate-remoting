@@ -31,7 +31,7 @@
 	<!-- 服务端发布服务 -->
 	<!-- 提供方应用信息，用于计算依赖关系 -->
     <dubbo:application name="xultimate-remoting-dubbo" logger="slf4j" compiler="javassist" />
-    <dubbo:provider proxy="javassist" serialization="protostuff" />
+    <dubbo:provider proxy="javassist" serialization="kryo" />
     <!-- 使用zookeeper注册中心暴露服务地址,check="true"表示注册中心启动时检查 -->
     <!-- address属性可以有多个，用","隔开 -->
     <!-- username和password在创建ZooKeeper后通过addAuthInfo方法设置的，但是创建xultimate节点的create方法中的acl参数使用的world形式而不是digest形式。所以通过getData访问xultimate节点时不会进行限制。 -->
