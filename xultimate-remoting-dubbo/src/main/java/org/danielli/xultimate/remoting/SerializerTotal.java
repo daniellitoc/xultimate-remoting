@@ -1,6 +1,6 @@
 package org.danielli.xultimate.remoting;
 
-import org.danielli.xultimate.core.serializer.java.ObjectSerializer;
+import org.danielli.xultimate.core.serializer.java.JavaObjectSerializer;
 import org.danielli.xultimate.core.serializer.kryo.RpcKryoSerializer;
 import org.danielli.xultimate.core.serializer.protostuff.RpcProtobufSerializer;
 import org.danielli.xultimate.core.serializer.protostuff.RpcProtostuffSerializer;
@@ -28,7 +28,7 @@ public class SerializerTotal {
 	public static final BaseTypeDeserializer PROTOSTUFF_BASE_TYPE_DESERIALIZER = new BaseTypeDeserializer();
 	
 	static {
-		ObjectSerializer objectSerializer = new ObjectSerializer();
+		JavaObjectSerializer objectSerializer = new JavaObjectSerializer();
 		NullableStreamSerializer nullableStreamObjectSerializer = new NullableStreamSerializer(objectSerializer, objectSerializer);
 		OBJECT_BASE_TYPE_SERIALIZER.setCheckKnownType(false);
 		OBJECT_BASE_TYPE_SERIALIZER.setExportKnownTypeToOutputStream(false);

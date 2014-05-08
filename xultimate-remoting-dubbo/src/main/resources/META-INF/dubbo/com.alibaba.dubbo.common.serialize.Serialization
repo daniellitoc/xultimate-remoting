@@ -1,4 +1,4 @@
 protostuff=org.danielli.xultimate.remoting.dubbo.serialize.support.protostuff.ProtostuffSerialization
-kryo=org.danielli.xultimate.remoting.dubbo.serialize.support.kryo.KryoSerialization
-protobuf=org.danielli.xultimate.remoting.dubbo.serialize.support.protobuf.ProtobufSerialization
-customJava=org.danielli.xultimate.remoting.dubbo.serialize.support.java.JavaSerialization
+kryo=org.danielli.xultimate.remoting.dubbo.serialize.support.kryo.copy.KryoSerialization
+protobuf=org.danielli.xultimate.remoting.dubbo.serialize.support.protobuf.copy.ProtobufSerialization
+customJava=org.danielli.xultimate.remoting.dubbo.serialize.support.java.copy.JavaSerialization
