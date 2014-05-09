@@ -43,7 +43,7 @@
       <!-- <property name="shareProducer" value="true"/> -->
       <!-- <property name="defaultTopic" value="*"/> -->
     </bean>
-    <bean id="objectSerializer" class="org.danielli.xultimate.core.serializer.java.ObjectSerializer" />
+    <bean id="objectSerializer" class="org.danielli.xultimate.core.serializer.java.JavaObjectSerializer" />
 	<bean id="nullableObjectSerializer" class="org.danielli.xultimate.core.serializer.support.NullableStreamSerializer" c:deserializer-ref="objectSerializer" c:serializer-ref="objectSerializer" />
 	<bean id="rpcKryoSerializer" class="org.danielli.xultimate.core.serializer.kryo.RpcKryoSerializer" />
 	<bean id="nullableRpcKryoSerializer" class="org.danielli.xultimate.core.serializer.support.NullableStreamSerializer" c:deserializer-ref="rpcKryoSerializer" c:serializer-ref="rpcKryoSerializer" />
