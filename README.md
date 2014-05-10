@@ -52,17 +52,17 @@
 * 重写MetaqTemplate，功能是直接Copy过来的，只是觉得调用起来如何能更加方便。
 * 提供MessageProducerCallback和MessageProducerWithMessageCallback，用于回调处理。
 * 提供MetaqTemplateUtils，用于执行消息回调。
-* 提供DefaultMessageBodyConverter，内部封装Serializer和Deserializer，通过组合方式实现，因此支持kryo、protostuff、protobuf等序列化方式。
+* 提供DefaultMessageBodyConverter，内部封装RpcSerializer，通过组合方式实现，因此支持Java、Kryo、Protobuf、Protostuff等序列化方式；同时具备压缩功能，可配置为GZIP、Snappy。
 * 提供XMemcachedMessageIdCache，消息ID实现，内部封装XMemcachedTemplate。
 
 
 ## xultimate-remoting-dubbo ##
 
 * 提供了基于Dubbo分布式服务框架的同步调用演示。
-* 提供JavaAbstractDataInput，内部封装多个Deserializer，提供基础类型解序列化。
-* 提供JavaAbstractDataOutput，内部封装多个Serializer，提供基础类型序列化。
-* 提供KryoObjectInput、KryoObjectOutput、KryoSerialization，完成Kryo序列化/解序列化功能。
-* 提供ProtobufObjectInput、ProtobufObjectOutput、ProtobufSerialization，完成Protobuf序列化/解序列化功能。
-* 提供ProtostuffObjectInput、ProtostuffObjectOutput、ProtostuffSerialization，完成Protostuff序列化/解序列化功能。
+* 提供ObjectInput、ObjectOutput，内部封装AbstractObjectInput、AbstractObjectOutput，提供真正解序列化。
+* 提供JavaSerialization，完成Java序列化/解序列化功能；同时具备压缩/解压缩功能，默认配置为Snappy；缓冲大小默认256；都可通过继承覆盖。
+* 提供KryoSerialization，完成Kryo序列化/解序列化功能；同时具备压缩/解压缩功能，默认配置为Snappy；缓冲大小默认256；都可通过继承覆盖。
+* 提供ProtobufSerialization，完成Protobuf序列化/解序列化功能；同时具备压缩/解压缩功能，默认配置为Snappy；缓冲大小默认256；都可通过继承覆盖。
+* 提供ProtostuffSerialization，完成Protostuff序列化/解序列化功能；同时具备压缩/解压缩功能，默认配置为Snappy；缓冲大小默认256；都可通过继承覆盖。
 * 提供CuratorFrameworkFactoryBean，用于通过Spring创建CuratorFramework实例。
 * 提供SetACLCommandExecutor，用于执行setACL指令。
