@@ -1,11 +1,9 @@
 package org.danielli.xultimate.remoting.metaq.support;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-
-import org.danielli.xultimate.core.serializer.Deserializer;
-import org.danielli.xultimate.core.serializer.Serializer;
-import org.danielli.xultimate.util.io.IOUtils;
+import org.danielli.xultimate.core.compression.Compressor;
+import org.danielli.xultimate.core.compression.Decompressor;
+import org.danielli.xultimate.core.compression.support.NullCompressor;
+import org.danielli.xultimate.core.serializer.RpcSerializer;
 
 import com.taobao.metamorphosis.client.extension.spring.MessageBodyConverter;
 import com.taobao.metamorphosis.exception.MetaClientException;
@@ -17,46 +15,48 @@ import com.taobao.metamorphosis.exception.MetaClientException;
  * @since 15 Jun 2013
  */
 public class DefaultMessageBodyConverter implements MessageBodyConverter<Object> {
-	/** 序列化器 */
-	private Serializer serializer;
-	/** 解序列化器 */
-	private Deserializer deserializer;
+	
+	/** Rpc序列化器和解序列化器 */
+	protected RpcSerializer rpcSerializer;
+	/** 压缩器 */
+	protected Compressor<byte[], byte[]> compressor = NullCompressor.COMPRESSOR;
+	/** 解压缩器 */
+	protected Decompressor<byte[], byte[]> decompressor = NullCompressor.COMPRESSOR;
 	
 	@Override
 	public byte[] toByteArray(Object body) throws MetaClientException {
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		try {
-			serializer.serialize(body, outputStream);
-		} finally {
-			IOUtils.closeQuietly(outputStream);
-		}
-		return outputStream.toByteArray();
+		return compressor.compress(rpcSerializer.serialize(body));
 	}
 
 	@Override
 	public Object fromByteArray(byte[] bs) throws MetaClientException {
-		ByteArrayInputStream inputStream = new ByteArrayInputStream(bs);
-		try {
-			return deserializer.deserialize(inputStream, Object.class);
-		} finally {
-			IOUtils.closeQuietly(inputStream);
-		}
-	}
-	
-	/**
-	 * 设置序列化器。
-	 * @param serializer 序列化器。
-	 */
-	public void setSerializer(Serializer serializer) {
-		this.serializer = serializer;
+		return rpcSerializer.deserialize(decompressor.decompress(bs), Object.class);
 	}
 
 	/**
-	 * 设置解序列化器。
-	 * @param deserializer 解序列化器。
+	 * 设置Rpc序列化器和解序列化器。
+	 * 
+	 * @param rpcSerializer Rpc序列化器和解序列化器
 	 */
-	public void setDeserializer(Deserializer deserializer) {
-		this.deserializer = deserializer;
+	public void setRpcSerializer(RpcSerializer rpcSerializer) {
+		this.rpcSerializer = rpcSerializer;
 	}
 
+	/**
+	 * 设置压缩器。
+	 * 
+	 * @param compressor 压缩器。
+	 */
+	public void setCompressor(Compressor<byte[], byte[]> compressor) {
+		this.compressor = compressor;
+	}
+
+	/**
+	 * 设置解压缩器。
+	 * 
+	 * @param decompressor 解压缩器。
+	 */
+	public void setDecompressor(Decompressor<byte[], byte[]> decompressor) {
+		this.decompressor = decompressor;
+	}
 }

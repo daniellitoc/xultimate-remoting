@@ -88,14 +88,10 @@
 		<property name="failureMode" value="true" />
 	</bean>
 	
-	<bean id="serializingTranscoder" class="org.danielli.xultimate.context.kvStore.memcached.xmemcached.SerializingTranscoder" p:compressionThreshold="1024">
-		<property name="baseTypeSerializer">
-			<bean class="org.danielli.xultimate.core.serializer.support.BaseTypeSerializer" p:checkKnownType="false" p:exportKnownTypeToOutputStream="false" p:packZerosWithoutOutputStream="true" p:serializer-ref="rpcProtostuffSerializer" />
-		</property>
-		<property name="baseTypeDeserializer">
-			<bean class="org.danielli.xultimate.core.serializer.support.BaseTypeDeserializer" p:checkKnownType="false" p:importKnownTypeFromInputStream="false" p:deserializer-ref="rpcProtostuffSerializer" />
-		</property>
-	</bean>
+	<bean id="serializingTranscoder" class="org.danielli.xultimate.context.kvStore.memcached.xmemcached.SerializingTranscoder" 
+				p:compressionThreshold="128" p:compressor-ref="snappyJavaCompressor" 
+				p:decompressor-ref="snappyJavaCompressor" p:packZeros="true" 
+				p:rpcSerializer-ref="rpcProtostuffSerializer"  />
 	
 	<bean id="memcachedClient" factory-bean="memcachedClientBuilder" factory-method="build" destroy-method="shutdown" />
   	
