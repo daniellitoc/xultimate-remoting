@@ -1,14 +1,20 @@
 package org.danielli.xultimate.remoting.dubbo.serialize.support.protobuf;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.danielli.xultimate.core.compression.Compressor;
+import org.danielli.xultimate.core.compression.Decompressor;
+import org.danielli.xultimate.core.compression.support.SnappyJavaCompressor;
+import org.danielli.xultimate.core.io.support.RpcProtobufObjectInput;
+import org.danielli.xultimate.core.io.support.RpcProtobufObjectOutput;
+import org.danielli.xultimate.core.serializer.kryo.support.ThreadLocalKryoGenerator;
+import org.danielli.xultimate.core.serializer.protostuff.util.LinkedBufferUtils;
+import org.danielli.xultimate.remoting.dubbo.serialize.support.ObjectInput;
+import org.danielli.xultimate.remoting.dubbo.serialize.support.ObjectOutput;
+
 import com.alibaba.dubbo.common.URL;
-import com.alibaba.dubbo.common.serialize.ObjectInput;
-import com.alibaba.dubbo.common.serialize.ObjectOutput;
 import com.alibaba.dubbo.common.serialize.Serialization;
 
 /**
@@ -19,6 +25,12 @@ import com.alibaba.dubbo.common.serialize.Serialization;
  */
 public class ProtobufSerialization implements Serialization {
 	
+	protected int bufferSize = 256;
+	
+	protected Compressor<byte[], byte[]> compressor = SnappyJavaCompressor.COMPRESSOR;
+	
+	protected Decompressor<byte[], byte[]> decompressor = SnappyJavaCompressor.COMPRESSOR;
+	
 	public byte getContentTypeId() {
         return 11;
     }
@@ -27,12 +39,13 @@ public class ProtobufSerialization implements Serialization {
         return "x-application/protobuf";
     }
 
-    public ObjectOutput serialize(URL url, OutputStream out) throws IOException {
-        return new ProtobufObjectOutput(new BufferedOutputStream(out));
-    }
+	@Override
+	public com.alibaba.dubbo.common.serialize.ObjectOutput serialize(URL url, OutputStream output) throws IOException {
+		return new ObjectOutput(new RpcProtobufObjectOutput(compressor.wrapper(output), bufferSize, LinkedBufferUtils.getCurrentLinkedBuffer(bufferSize), ThreadLocalKryoGenerator.INSTANCE.generate()));
+	}
 
-    public ObjectInput deserialize(URL url, InputStream is) throws IOException {
-        return new ProtobufObjectInput(new BufferedInputStream(is));
-    }
-
+	@Override
+	public com.alibaba.dubbo.common.serialize.ObjectInput deserialize(URL url, InputStream input) throws IOException {
+		return new ObjectInput(new RpcProtobufObjectInput(decompressor.wrapper(input), bufferSize, LinkedBufferUtils.getCurrentLinkedBuffer(bufferSize), ThreadLocalKryoGenerator.INSTANCE.generate()));
+	}
 }

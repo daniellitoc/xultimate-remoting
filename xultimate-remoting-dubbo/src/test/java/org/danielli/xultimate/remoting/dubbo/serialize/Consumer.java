@@ -26,16 +26,14 @@ public class Consumer {
         PerformanceMonitor.stop();
         PerformanceMonitor.summarize(new AdvancedStopWatchSummary(true));
         PerformanceMonitor.remove();
-        // Kryo、Protobuf、Protostuff的序列化性能都要好于Hessian2很多，在xultimate-core里的测试类可以看到相关的性能测试。
-        // 目前在dubbo中应用，速度上比hessian2慢一点，不过序列化部分需要重新进行设计，且已经知道原因所在。
-        // dubbo start timestamp(ns): 4311299299241, stop timestamp(ns): 4368039819226, running time: 0000:00:00 0:00:56.740 (56740519985 ns) (56740519 us) (56740 ms) (018.40126%)
-        // hessian2 start timestamp(ns): 4564823105698, stop timestamp(ns): 4619882542361, running time: 0000:00:00 0:00:55.059 (55059436663 ns) (55059436 us) (55059 ms) (018.26991%)
+        // dubbo start timestamp(ns): 989258276356, stop timestamp(ns): 1045624291663, running time: 0000:00:00 0:00:56.366 (56366015307 ns) (56366015 us) (56366 ms) (029.33839%)
+        // hessian2 start timestamp(ns): 1296299303505, stop timestamp(ns): 1352769635210, running time: 0000:00:00 0:00:56.470 (56470331705 ns) (56470331 us) (56470 ms) (029.29963%)
         // java start timestamp(ns): 5826432023255, stop timestamp(ns): 5887835317613, running time: 0000:00:00 0:01:01.403 (61403294358 ns) (61403294 us) (61403 ms) (018.26744%)
         // compactedjava
-        // customJava start timestamp(ns): 6552100723229, stop timestamp(ns): 6611358581955, running time: 0000:00:00 0:00:59.257 (59257858726 ns) (59257858 us) (59257 ms) (018.40684%)
-        // kryo start timestamp(ns): 6887972740289, stop timestamp(ns): 6944583992692, running time: 0000:00:00 0:00:56.611 (56611252403 ns) (56611252 us) (56611 ms) (018.41684%)
-        // protobuf start timestamp(ns): 7379823567896, stop timestamp(ns): 7435527050692, running time: 0000:00:00 0:00:55.703 (55703482796 ns) (55703482 us) (55703 ms) (018.29331%)
-        // protostuff start timestamp(ns): 7832325784632, stop timestamp(ns): 7888115964498, running time: 0000:00:00 0:00:55.790 (55790179866 ns) (55790179 us) (55790 ms) (018.41977%)
+        // customJava start timestamp(ns): 2831795239652, stop timestamp(ns): 2893496929263, running time: 0000:00:00 0:01:01.701 (61701689611 ns) (61701689 us) (61701 ms) (029.44951%)
+        // kryo start timestamp(ns): 3413941430671, stop timestamp(ns): 3469853249738, running time: 0000:00:00 0:00:55.911 (55911819067 ns) (55911819 us) (55911 ms) (029.36789%)
+        // protobuf start timestamp(ns): 3734136178841, stop timestamp(ns): 3791089106269, running time: 0000:00:00 0:00:56.952 (56952927428 ns) (56952927 us) (56952 ms) (029.18992%)
+        // protostuff start timestamp(ns): 4088411137780, stop timestamp(ns): 4145532366099, running time: 0000:00:00 0:00:57.121 (57121228319 ns) (57121228 us) (57121 ms) (029.32199%)
         context.close();
     }
 }
