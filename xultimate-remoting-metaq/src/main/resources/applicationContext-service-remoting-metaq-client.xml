@@ -46,5 +46,10 @@
 	<bean id="rpcProtostuffSerializer" class="org.danielli.xultimate.core.serializer.protostuff.RpcProtostuffSerializer" />
 	<util:constant id="snappyJavaCompressor" static-field="org.danielli.xultimate.core.compression.support.SnappyJavaCompressor.COMPRESSOR"/>
 	<!--  message body converter. -->
-	<bean id="defaultMessageBodyConverter" class="org.danielli.xultimate.remoting.metaq.support.DefaultMessageBodyConverter" p:rpcSerializer-ref="rpcProtostuffSerializer" p:compressor-ref="snappyJavaCompressor" p:decompressor-ref="snappyJavaCompressor"/>
+	<!-- 
+	<bean id="defaultMessageBodyConverter" class="org.danielli.xultimate.remoting.metaq.support.JavaObjectConverter" p:compressor-ref="snappyJavaCompressor" p:decompressor-ref="snappyJavaCompressor"/>
+	<bean id="defaultMessageBodyConverter" class="org.danielli.xultimate.remoting.metaq.support.RpcKryoObjectConverter" p:compressor-ref="snappyJavaCompressor" p:decompressor-ref="snappyJavaCompressor"/>
+	<bean id="defaultMessageBodyConverter" class="org.danielli.xultimate.remoting.metaq.support.RpcProtobufObjectConverter" p:compressor-ref="snappyJavaCompressor" p:decompressor-ref="snappyJavaCompressor"/>
+	 -->
+	<bean id="defaultMessageBodyConverter" class="org.danielli.xultimate.remoting.metaq.support.RpcProtostuffObjectConverter" p:compressor-ref="snappyJavaCompressor" p:decompressor-ref="snappyJavaCompressor"/>
 </beans>
