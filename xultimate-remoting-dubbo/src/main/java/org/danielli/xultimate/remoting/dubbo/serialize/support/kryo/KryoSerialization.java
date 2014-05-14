@@ -30,6 +30,8 @@ public class KryoSerialization implements Serialization {
 	
 	protected Decompressor<byte[], byte[]> decompressor = SnappyJavaCompressor.COMPRESSOR;
 	
+	protected int compressionThreshold = 512;
+	
 	public byte getContentTypeId() {
         return 12;
     }
@@ -40,11 +42,11 @@ public class KryoSerialization implements Serialization {
 
 	@Override
 	public com.alibaba.dubbo.common.serialize.ObjectOutput serialize(URL url, OutputStream output) throws IOException {
-		return new ObjectOutput(new RpcKryoObjectOutput(compressor.wrapper(output), bufferSize, ThreadLocalKryoGenerator.INSTANCE.generate()));
+		return new ObjectOutput(new RpcKryoObjectOutput(bufferSize, ThreadLocalKryoGenerator.INSTANCE.generate()), output, compressionThreshold, compressor);
 	}
 
 	@Override
 	public com.alibaba.dubbo.common.serialize.ObjectInput deserialize(URL url, InputStream input) throws IOException {
-		return new ObjectInput(new RpcKryoObjectInput(decompressor.wrapper(input), bufferSize, ThreadLocalKryoGenerator.INSTANCE.generate()));
+		return new ObjectInput(new RpcKryoObjectInput(bufferSize, ThreadLocalKryoGenerator.INSTANCE.generate()), input, decompressor);
 	}
 }

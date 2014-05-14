@@ -1,8 +1,10 @@
 package org.danielli.xultimate.remoting.dubbo.serialize.support;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 
+import org.danielli.xultimate.core.compression.Decompressor;
 import org.danielli.xultimate.core.io.AbstractObjectInput;
 
 /**
@@ -17,6 +19,17 @@ public class ObjectInput implements com.alibaba.dubbo.common.serialize.ObjectInp
 
 	public ObjectInput(AbstractObjectInput objectInput) {
 		this.objectInput = objectInput;
+	}
+	
+	public ObjectInput(AbstractObjectInput objectInput, InputStream inputStream, Decompressor<byte[], byte[]> decompressor) throws IOException {
+		this.objectInput = objectInput;
+		byte[] hasCompress = new byte[1];
+		inputStream.read(hasCompress);
+		if (hasCompress[0] == 1) {
+			this.objectInput.setInputStream(decompressor.wrapper(inputStream));
+		} else {
+			this.objectInput.setInputStream(inputStream);
+		}
 	}
 
 	@Override

@@ -31,6 +31,8 @@ public class ProtostuffSerialization implements Serialization {
 	
 	protected Decompressor<byte[], byte[]> decompressor = SnappyJavaCompressor.COMPRESSOR;
 	
+	protected int compressionThreshold = 512;
+	
 	public byte getContentTypeId() {
         return 10;
     }
@@ -41,11 +43,11 @@ public class ProtostuffSerialization implements Serialization {
 
 	@Override
 	public com.alibaba.dubbo.common.serialize.ObjectOutput serialize(URL url, OutputStream output) throws IOException {
-		return new ObjectOutput(new RpcProtostuffObjectOutput(compressor.wrapper(output), bufferSize, LinkedBufferUtils.getCurrentLinkedBuffer(bufferSize), ThreadLocalKryoGenerator.INSTANCE.generate()));
+		return new ObjectOutput(new RpcProtostuffObjectOutput(bufferSize, LinkedBufferUtils.getCurrentLinkedBuffer(bufferSize), ThreadLocalKryoGenerator.INSTANCE.generate()), output, compressionThreshold, compressor);
 	}
 
 	@Override
 	public com.alibaba.dubbo.common.serialize.ObjectInput deserialize(URL url, InputStream input) throws IOException {
-		return new ObjectInput(new RpcProtostuffObjectInput(decompressor.wrapper(input), bufferSize, LinkedBufferUtils.getCurrentLinkedBuffer(bufferSize), ThreadLocalKryoGenerator.INSTANCE.generate()));
+		return new ObjectInput(new RpcProtostuffObjectInput(bufferSize, ThreadLocalKryoGenerator.INSTANCE.generate()), input, decompressor);
 	}
 }

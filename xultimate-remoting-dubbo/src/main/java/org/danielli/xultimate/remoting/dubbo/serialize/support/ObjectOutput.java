@@ -3,7 +3,9 @@ package org.danielli.xultimate.remoting.dubbo.serialize.support;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.danielli.xultimate.core.compression.Compressor;
 import org.danielli.xultimate.core.io.AbstractObjectOutput;
+import org.danielli.xultimate.core.serializer.java.util.SerializerUtils;
 
 /**
  * 对象输出流。
@@ -15,8 +17,17 @@ public class ObjectOutput implements com.alibaba.dubbo.common.serialize.ObjectOu
 
 	protected AbstractObjectOutput objectOutput;
 	
-	public ObjectOutput(AbstractObjectOutput objectOutput) {
+	protected OutputStream outputStream;
+	
+	protected int compressionThreshold;
+	
+	protected Compressor<byte[], byte[]> compressor;
+	
+	public ObjectOutput(AbstractObjectOutput objectOutput, OutputStream outputStream, int compressionThreshold, Compressor<byte[], byte[]> compressor) {
 		this.objectOutput = objectOutput;
+		this.outputStream = outputStream;
+		this.compressionThreshold = compressionThreshold;
+		this.compressor = compressor;
 	}
 
 	@Override
@@ -80,9 +91,16 @@ public class ObjectOutput implements com.alibaba.dubbo.common.serialize.ObjectOu
 
 	@Override
 	public void flushBuffer() throws IOException {
-		objectOutput.flush();
-		OutputStream outputStream = objectOutput.getOutputStream();
-		if (outputStream != null) {
+		try {
+			if (objectOutput.position() > compressionThreshold) {
+				outputStream.write(SerializerUtils.encodeByte((byte) 1));
+				outputStream.write(compressor.compress(objectOutput.toBytes()));
+			} else {
+				outputStream.write(SerializerUtils.encodeByte((byte) 0));
+				outputStream.write(objectOutput.getBuffer(), 0, objectOutput.position());
+			}
+		} finally {
+			objectOutput.close();
 			outputStream.flush();
 		}
 	}

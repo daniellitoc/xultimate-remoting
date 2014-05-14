@@ -32,8 +32,8 @@ public class Consumer {
         // compactedjava
         // customJava start timestamp(ns): 2831795239652, stop timestamp(ns): 2893496929263, running time: 0000:00:00 0:01:01.701 (61701689611 ns) (61701689 us) (61701 ms) (029.44951%)
         // kryo start timestamp(ns): 3413941430671, stop timestamp(ns): 3469853249738, running time: 0000:00:00 0:00:55.911 (55911819067 ns) (55911819 us) (55911 ms) (029.36789%)
-        // protobuf start timestamp(ns): 3734136178841, stop timestamp(ns): 3791089106269, running time: 0000:00:00 0:00:56.952 (56952927428 ns) (56952927 us) (56952 ms) (029.18992%)
-        // protostuff start timestamp(ns): 4088411137780, stop timestamp(ns): 4145532366099, running time: 0000:00:00 0:00:57.121 (57121228319 ns) (57121228 us) (57121 ms) (029.32199%)
+        // protobuf start timestamp(ns): 8282527284369, stop timestamp(ns): 8340615324311, running time: 0000:00:00 0:00:58.088 (58088039942 ns) (58088039 us) (58088 ms) (029.14129%)
+        // protostuff start timestamp(ns): 11678533456635, stop timestamp(ns): 11738213938152, running time: 0000:00:00 0:00:59.680 (59680481517 ns) (59680481 us) (59680 ms) (028.95920%)
         context.close();
     }
 }

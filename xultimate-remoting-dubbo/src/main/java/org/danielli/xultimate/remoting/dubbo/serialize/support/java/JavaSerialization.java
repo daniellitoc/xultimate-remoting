@@ -29,6 +29,8 @@ public class JavaSerialization implements Serialization {
 	
 	protected Decompressor<byte[], byte[]> decompressor = SnappyJavaCompressor.COMPRESSOR;
 	
+	protected int compressionThreshold = 512;
+	
 	@Override
 	public byte getContentTypeId() {
 		return 13;
@@ -41,11 +43,17 @@ public class JavaSerialization implements Serialization {
 
 	@Override
 	public com.alibaba.dubbo.common.serialize.ObjectOutput serialize(URL url, OutputStream output) throws IOException {
-		return new ObjectOutput(new JavaObjectOutput(compressor.wrapper(output), bufferSize));
+		return new ObjectOutput(new JavaObjectOutput(bufferSize), output, compressionThreshold, compressor);
 	}
 
 	@Override
 	public com.alibaba.dubbo.common.serialize.ObjectInput deserialize(URL url, InputStream input) throws IOException {
-		return new ObjectInput(new JavaObjectInput(decompressor.wrapper(input), bufferSize));
+		byte[] hasCompress = new byte[1];
+		input.read(hasCompress);
+		if (hasCompress[0] == 1) {
+			return new ObjectInput(new JavaObjectInput(decompressor.wrapper(input), bufferSize));
+		} else {
+			return new ObjectInput(new JavaObjectInput(input, bufferSize));
+		}
 	}
 }

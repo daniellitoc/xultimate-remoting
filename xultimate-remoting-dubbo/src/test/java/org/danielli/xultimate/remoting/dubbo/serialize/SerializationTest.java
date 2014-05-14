@@ -37,7 +37,7 @@ public class SerializationTest {
 //		serializerObject.setDateTime(new DateTime());
 		serializerObject.setInteger(24);
 		serializerObject.setLongNum(Long.MAX_VALUE);
-		serializerObject.setString("呵呵，a,1");
+		serializerObject.setString("呵呵，a,1呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵");
 	}
 	
 	@Test
@@ -46,7 +46,7 @@ public class SerializationTest {
 		Hessian2Serialization hessian2Serialization = new Hessian2Serialization();
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 100000; j++) {
-				// length: 264
+				// length: 1720
 				receive(hessian2Serialization, send(hessian2Serialization));
 			}
 			PerformanceMonitor.mark("hessian2Serialization" + i);
@@ -55,7 +55,7 @@ public class SerializationTest {
 		DubboSerialization dubboSerialization = new DubboSerialization();
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 100000; j++) {
-				// length: 238
+				// length: 1694
 				receive(dubboSerialization, send(dubboSerialization));
 			}
 			PerformanceMonitor.mark("dubboSerialization" + i);
@@ -64,7 +64,7 @@ public class SerializationTest {
 		JavaSerialization javaSerialization = new JavaSerialization();
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 100000; j++) {
-				// length: 471
+				// length: 521
 				receive(javaSerialization, send(javaSerialization));
 			}
 			PerformanceMonitor.mark("javaSerialization + Snappy" + i);
@@ -78,7 +78,7 @@ public class SerializationTest {
 		};
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 100000; j++) {
-				// length: 242
+				// length: 1699
 				receive(notCompressKryoSerialization, send(notCompressKryoSerialization));
 			}
 			PerformanceMonitor.mark("kryoSerialization" + i);
@@ -92,7 +92,7 @@ public class SerializationTest {
 		};
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 100000; j++) {
-				// length: 229
+				// length: 1687
 				receive(notCompressProtobufSerialization, send(notCompressProtobufSerialization));
 			}
 			PerformanceMonitor.mark("protobufSerialization" + i);
@@ -101,7 +101,7 @@ public class SerializationTest {
 		KryoSerialization kryoSerialization = new KryoSerialization();
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 100000; j++) {
-				// length: 211
+				// length: 262
 				receive(kryoSerialization, send(kryoSerialization));
 			}
 			PerformanceMonitor.mark("kryoSerialization + Snappy" + i);
@@ -110,7 +110,7 @@ public class SerializationTest {
 		ProtobufSerialization protobufSerialization = new ProtobufSerialization();
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 100000; j++) {
-				// length: 199
+				// length: 252
 				receive(protobufSerialization, send(protobufSerialization));
 			}
 			PerformanceMonitor.mark("protobufSerialization + Snappy" + i);
@@ -119,7 +119,7 @@ public class SerializationTest {
 		ProtostuffSerialization protostuffSerialization = new ProtostuffSerialization();
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 100000; j++) {
-				// length: 199
+				// length: 252
 				receive(protostuffSerialization, send(protostuffSerialization));
 			}
 			PerformanceMonitor.mark("protostuffSerialization + Snappy" + i);
@@ -141,7 +141,7 @@ public class SerializationTest {
 		objectOutput.writeObject(serializerObject);
 		objectOutput.flushBuffer();
 		byte[] result = arrayOutputStream.toByteArray();
-		System.out.println(result.length);
+//		System.out.println(result.length);
 		return new ByteArrayInputStream(result);
 	}
 	
