@@ -52,7 +52,8 @@
 * 重写MetaqTemplate，功能是直接Copy过来的，只是觉得调用起来如何能更加方便。
 * 提供MessageProducerCallback和MessageProducerWithMessageCallback，用于回调处理。
 * 提供MetaqTemplateUtils，用于执行消息回调。
-* 提供DefaultMessageBodyConverter，内部封装RpcSerializer，通过组合方式实现，因此支持Java、Kryo、Protobuf、Protostuff等序列化方式；同时具备压缩功能，可配置为GZIP、Snappy。
+* 提供RpcKryoObjectConverter、JavaObjectConverter，通过Kryo、Java默认的序列化/解序列化方式；同时具备压缩功能，可配置为GZIP、Snappy。
+* 提供RpcProtobufObjectConverter、RpcProtostuffObjectConverter，通过Protobuf、Protostuff的序列化/解序列化方式；同时具备压缩功能，可配置为GZIP、Snappy。
 * 提供XMemcachedMessageIdCache，消息ID实现，内部封装XMemcachedTemplate。
 
 
