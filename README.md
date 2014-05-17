@@ -67,3 +67,4 @@
 * 提供ProtostuffSerialization，完成Protostuff序列化/解序列化功能；同时具备压缩/解压缩功能，默认配置为Snappy；缓冲大小默认256；都可通过继承覆盖。
 * 提供CuratorFrameworkFactoryBean，用于通过Spring创建CuratorFramework实例。
 * 提供SetACLCommandExecutor，用于执行setACL指令。
+* 重写Main，强制使用dubbo.properties并声明dubbo.spring.config属性指定Spring配置文件。
