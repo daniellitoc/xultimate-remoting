@@ -28,19 +28,6 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
 		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
-	<!-- 服务端发布服务 -->
-	<!-- 提供方应用信息，用于计算依赖关系 -->
-    <dubbo:application name="xultimate-remoting-dubbo" logger="slf4j" compiler="javassist" />
-    <dubbo:provider proxy="javassist" serialization="protostuff" />
-    <!-- 使用zookeeper注册中心暴露服务地址,check="true"表示注册中心启动时检查 -->
-    <!-- address属性可以有多个，用","隔开 -->
-    <!-- username和password在创建ZooKeeper后通过addAuthInfo方法设置的，但是创建xultimate节点的create方法中的acl参数使用的world形式而不是digest形式。所以通过getData访问xultimate节点时不会进行限制。 -->
-    <dubbo:registry id="registry" protocol="zookeeper" client="curator" address="192.168.10.101:2181" check="true"  username="xultimate" password="password" group="xultimate" timeout="15000" />
-    <!-- 用dubbo协议在20880端口暴露服务 -->
-    <dubbo:protocol name="dubbo" server="netty" port="20880" accesslog="foo/bar.log" dispatcher="all" threadpool="fixed" threads="100"/>
-	<!-- 声明需要暴露的服务接口 -->
-	<dubbo:service interface="org.danielli.xultimate.remoting.service.AccountService" ref="accountService" version="1.0.0" validation="true" cluster="failover" loadbalance="random" protocol="dubbo" registry="registry"/>
-
 	<bean id="retryNTimes" class="com.netflix.curator.retry.RetryNTimes" c:n="2147483647" c:sleepMsBetweenRetries="1000" />
 	<bean id="curatorFramework" class="org.danielli.xultimate.zookeeper.CuratorFrameworkFactoryBean" 
 		p:connectString="192.168.10.101:2181" p:retryPolicy-ref="retryNTimes"
@@ -63,4 +50,19 @@
 			</util:map>
 		</property>
 	</bean>
+	
+	<!-- 使用kill PID进行关闭，不能使用kill -9 PID -->
+	<!-- 服务端发布服务 -->
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="xultimate-remoting-dubbo" logger="slf4j" compiler="javassist" />
+    <!-- 如果是内网调用，则不需要设置token -->
+    <dubbo:provider proxy="javassist" serialization="protostuff" token="true" />
+    <!-- 使用zookeeper注册中心暴露服务地址,check="true"表示注册中心启动时检查 -->
+    <!-- address属性可以有多个，用","隔开 -->
+    <!-- username和password在创建ZooKeeper后通过addAuthInfo方法设置的，但是创建xultimate节点的create方法中的acl参数使用的world形式而不是digest形式。所以通过getData访问xultimate节点时不会进行限制。 -->
+    <dubbo:registry id="registry" protocol="zookeeper" client="curator" address="192.168.10.101:2181" check="true"  username="xultimate" password="password" group="xultimate" timeout="15000" />
+    <!-- 用dubbo协议在20880端口暴露服务 -->
+    <dubbo:protocol name="dubbo" server="netty" port="20880" accesslog="foo/bar.log" dispatcher="all" threadpool="fixed" threads="100" />
+	<!-- 声明需要暴露的服务接口 -->
+	<dubbo:service interface="org.danielli.xultimate.remoting.service.AccountService" ref="accountService" version="1.0.0" validation="true" protocol="dubbo" registry="registry" />
 </beans>

@@ -30,13 +30,26 @@
 		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 	<!-- 客户端引用服务，check="true"表示所有服务的启动时检查 -->
 	<dubbo:consumer check="true" proxy="javassist" />
-	<dubbo:protocol server="netty"/>
+	<dubbo:protocol server="netty" />
 	<!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
     <dubbo:application name="consumer-of-xultimate-remoting-dubbo" logger="slf4j" compiler="javassist" />
     <!-- 使用zookeeper注册中心暴露服务地址,check="true"表示注册中心启动时检查 -->
     <!-- address属性可以有多个，用","隔开 -->
     <!-- username和password在创建ZooKeeper后通过addAuthInfo方法设置的，但是创建xultimate节点的create方法中的acl参数使用的world形式而不是digest形式。所以通过getData访问xultimate节点时不会进行限制。 -->
     <dubbo:registry id="registry" protocol="zookeeper" client="curator" address="192.168.10.101:2181" username="xultimate" password="password" group="xultimate" timeout="15000" />
-	<!-- 增加引用远程服务配置 -->
-	<dubbo:reference id="remotingDubboAccountService" interface="org.danielli.xultimate.remoting.service.AccountService" version="1.0.0" protocol="dubbo" registry="registry"/>
+	<!-- 增加引用远程服务配置
+			cluster="failover"表示失败时重试retries次
+			loadbalance="leastactive"表示使用最小连接算法进行负载均衡
+	 -->
+	<!-- 通过异步调用或调整监控为method = saveXXXXX => host = 172.22.3.94,172.22.3.95,172.22.3.96来进行控制某个方法因为执行时间特别长而影响到整个应用。 -->
+	<dubbo:reference cluster="failover" retries="2" loadbalance="leastactive" id="remotingDubboAccountService" interface="org.danielli.xultimate.remoting.service.AccountService" version="1.0.0" protocol="dubbo" registry="registry">
+		<!-- 对于写方法不应该使用重试
+		<dubbo:method name="saveXXXX" retries="0" />
+		 -->
+		<!-- async表示异步调用，可通过RpcContext.getContext().getFuture()返回Future。
+			 sent="true"表示需要等待消息发出，消息发送失败抛出异常。
+			 sent="false"类似消息中间件了。
+		<dubbo:method name="saveXXXX" async="true" sent="true" />
+		 -->
+	</dubbo:reference>
 </beans>

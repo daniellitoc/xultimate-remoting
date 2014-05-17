@@ -5,8 +5,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.danielli.xultimate.remoting.dto.Account;
-import org.danielli.xultimate.remoting.dubbo.serialize.Consumer;
-import org.danielli.xultimate.remoting.dubbo.serialize.Provider;
 import org.danielli.xultimate.remoting.service.AccountService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * 
  * @author Daniel Li
  * @since 18 Jun 2013
- * @see Consumer
- * @see Provider
  */
 @Controller
 @RequestMapping("/accounts")
