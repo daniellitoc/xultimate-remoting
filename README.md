@@ -54,7 +54,7 @@
 * 提供MetaqTemplateUtils，用于执行消息回调。
 * 提供RpcKryoObjectConverter、JavaObjectConverter，通过Kryo、Java默认的序列化/解序列化方式；同时具备压缩功能，可配置为GZIP、Snappy。
 * 提供RpcProtobufObjectConverter、RpcProtostuffObjectConverter，通过Protobuf、Protostuff的序列化/解序列化方式；同时具备压缩功能，可配置为GZIP、Snappy。
-* 提供XMemcachedMessageIdCache，消息ID实现，内部封装XMemcachedTemplate。
+* 提供XMemcachedMessageIdCache，消息ID实现，内部封装XMemcachedClient。
 
 
 ## xultimate-remoting-dubbo ##

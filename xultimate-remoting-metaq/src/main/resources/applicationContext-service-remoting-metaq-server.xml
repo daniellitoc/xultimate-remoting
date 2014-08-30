@@ -28,7 +28,7 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 	
 	  <bean id="messageIdCache" class="org.danielli.xultimate.remoting.metaq.support.XMemcachedMessageIdCache"
-	  	p:memcachedTemplate-ref="xmemcachedTemplate" p:expireInSeconds="60" init-method="addSampleFetchManager" />
+	  	p:xMemcachedClient-ref="xMemcachedClient" p:expireInSeconds="60" init-method="addSampleFetchManager" />
 	
 	  <!--  topics to be subscribed. -->
 	  <bean id="loggingTopic" class="com.taobao.metamorphosis.client.extension.spring.MetaqTopic">

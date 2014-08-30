@@ -1,10 +1,6 @@
 package org.danielli.xultimate.remoting.metaq.support;
 
-import net.rubyeye.xmemcached.MemcachedClient;
-
-import org.danielli.xultimate.context.kvStore.memcached.xmemcached.XMemcachedCallback;
-import org.danielli.xultimate.context.kvStore.memcached.xmemcached.XMemcachedReturnedCallback;
-import org.danielli.xultimate.context.kvStore.memcached.xmemcached.support.XMemcachedTemplate;
+import org.danielli.xultimate.context.kvStore.memcached.xmemcached.XMemcachedClient;
 
 import com.taobao.metamorphosis.client.consumer.MessageIdCache;
 import com.taobao.metamorphosis.client.consumer.SimpleFetchManager;
@@ -16,20 +12,19 @@ import com.taobao.metamorphosis.client.consumer.SimpleFetchManager;
  * @since 15 Jun 2013
  */
 public class XMemcachedMessageIdCache implements MessageIdCache {
-	/** XMemcached模板类 */
-	private XMemcachedTemplate memcachedTemplate;
+	/** XMemcached客户端 */
+	private XMemcachedClient xMemcachedClient;
 
 	/** 失效时间 */
 	private int expireInSeconds = 60;
 
 	/**
-	 * 设置XMemcached模板类。
-	 * @param memcachedTemplate XMemcached模板类。
+	 * 设置XMemcached客户端。
+	 * @param xMemcachedClient XMemcached客户端。
 	 */
-	public void setMemcachedTemplate(XMemcachedTemplate memcachedTemplate) {
-		this.memcachedTemplate = memcachedTemplate;
+	public void setxMemcachedClient(XMemcachedClient xMemcachedClient) {
+		this.xMemcachedClient = xMemcachedClient;
 	}
-
 	/**
 	 * 设置失效时间。
 	 * @param expireInSeconds 失效时间。
@@ -39,27 +34,13 @@ public class XMemcachedMessageIdCache implements MessageIdCache {
 	}
 
 	@Override
-	public void put(final String key, final Byte exists) {
-		this.memcachedTemplate.execute(new XMemcachedCallback() {
-			
-			@Override
-			public void doInXMemcached(MemcachedClient memcachedClient) throws Exception {
-				memcachedClient.set(key, expireInSeconds, exists);
-			}
-		});
+	public void put(String key, Byte exists) {
+		xMemcachedClient.set(key, expireInSeconds, exists);
 	}
 
 	@Override
 	public Byte get(final String key) {
-		return this.memcachedTemplate.execute(new XMemcachedReturnedCallback<Byte>() {
-
-			@Override
-			public Byte doInXMemcached(MemcachedClient memcachedClient) throws Exception {
-				return memcachedClient.get(key);
-			}
-		
-		});
-		
+		return xMemcachedClient.get(key);
 	}
 	
 	/**
